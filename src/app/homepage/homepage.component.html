@@ -1,0 +1,15 @@
+<div class="text-white m-2" >
+    <h2>Sommaire des fonctionnalités</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @for(feature of featureList() ; track feature.id) {
+        <div class="col" >
+            <div class="card" appFeatureBorder [featureType]="feature.type">
+                <div class="card-body">
+                    <h5 class="card-title">{{ feature.title }}</h5>
+                    <a href="{{ feature.url }}" class="btn btn-primary">Y aller !</a>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
