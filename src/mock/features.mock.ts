@@ -7,5 +7,12 @@ export const FEATURE_LIST: Feature[] = [
         path: 'src/app/inventory-counter/inventory-counter.component.ts',
         type: 'technique',
         url: 'inventaire/compteur'
+    },
+    {
+        id: 2,
+        title: 'Directive : couleur de bordure en fonction d\'un paramètre',
+        path: 'src/app/directive/feature-border.directive.ts',
+        type: 'technique',
+        url: 'home'
     }
 ];

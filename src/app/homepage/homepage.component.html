@@ -7,7 +7,11 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ feature.title }}</h5>
                     <p class="card-text">Code : {{ feature.path }}</p>
+                    @if(feature.url === 'home') {
+                    <span class="btn btn-secondary">Nous y sommes !</span>
+                    } @else {
                     <a href="{{ feature.url }}" class="btn btn-primary">Y aller !</a>
+                    }
                 </div>
             </div>
         </div>
