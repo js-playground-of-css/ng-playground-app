@@ -59,7 +59,7 @@ export class BoardBatonnetsComponent implements OnInit {
     this.maxIndexBatonnetSelectionne.update(ancienIndex => {
       const etatBatonnet = (event as CustomEvent).detail as EtatBatonnet;
       if(
-        this.etatPlateau && 
+        etatBatonnet && 
         etatBatonnet.etat === AdaptativeBatonnetComponent.SELECTIONNE && 
         ancienIndex < etatBatonnet.index) {
         return etatBatonnet.index;
