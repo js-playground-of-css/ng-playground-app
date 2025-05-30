@@ -52,6 +52,11 @@ export class AdaptativeBatonnetComponent {
         AdaptativeBatonnetComponent.SUR_PLATEAU :
         AdaptativeBatonnetComponent.SELECTIONNE;
     });
+    if(this.etatBatonnet() === AdaptativeBatonnetComponent.SELECTIONNE) {
+        this.inputEtatPlateau().nbBatonnetSelectionne++;
+    } else {
+      this.inputEtatPlateau().nbBatonnetSelectionne--;
+    }
   }
 
   selectionner() {
@@ -59,7 +64,10 @@ export class AdaptativeBatonnetComponent {
   }
 
   onUpdateEtatBatonnet() {
-    if(this.inputEtatPlateau().nbBatonnetSelectionne < 3) {
+    if(
+      this.inputEtatPlateau().nbBatonnetSelectionne <= 3 ||
+      this.etatBatonnet() === AdaptativeBatonnetComponent.SELECTIONNE
+    ) {
       this.inverserEtat();
       this.onEtatBatonnetUpdate.emit({
         index: this.inputIndexBatonnet(),
