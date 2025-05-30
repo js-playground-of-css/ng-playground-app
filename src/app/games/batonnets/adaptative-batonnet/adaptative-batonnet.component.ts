@@ -65,7 +65,10 @@ export class AdaptativeBatonnetComponent {
 
   onUpdateEtatBatonnet() {
     if(
-      this.inputEtatPlateau().nbBatonnetSelectionne <= 3 ||
+      (
+        this.inputEtatPlateau().nbBatonnetSelectionne <= 3 &&
+        (this.inputIndexBatonnet() - this.inputEtatPlateau().indexBatonnetCourant + 1) <= 3
+      ) ||
       this.etatBatonnet() === AdaptativeBatonnetComponent.SELECTIONNE
     ) {
       this.inverserEtat();
