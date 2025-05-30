@@ -4,7 +4,10 @@
     </p>
     <p id="board">
     @for(indexBatonnet of this.creerListeBatonnet() ; track indexBatonnet) {
-        <app-adaptative-batonnet/>
+        <app-adaptative-batonnet 
+            [inputEtatPlateau]="this.etatPlateau" 
+            [inputIndexBatonnet]="indexBatonnet" 
+            (onUpdateEtatBatonnet)="handlerEtatBatonnetUpdate($event)" />
     }
     </p>
 </div>
