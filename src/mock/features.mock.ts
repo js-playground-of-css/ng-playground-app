@@ -14,5 +14,12 @@ export const FEATURE_LIST: Feature[] = [
         path: 'src/app/directive/feature-border.directive.ts',
         type: 'technique',
         url: 'home'
+    },
+    {
+        id: 33,
+        title: 'Jeu du bâtonnets',
+        path: './',
+        type: 'jeu',
+        url: 'games/batonnets'
     }
 ];

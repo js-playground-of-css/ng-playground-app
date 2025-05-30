@@ -30,6 +30,8 @@ export class FeatureBorderDirective {
     switch(this.featureType()) {
       case 'technique':
         return '#0099ff';
+      case 'jeu':
+        return '#ff3300';
       default:
         return '#4080bf';
     }
