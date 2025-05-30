@@ -1,7 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { AdaptativeBatonnetComponent } from '../adaptative-batonnet/adaptative-batonnet.component';
 import { EtatPlateau } from '../model/etat-plateau.model';
-import { EtatBatonnet } from '../model/etat-batonnet.model';
+import { EtatBatonnetMapGenerator } from '../utils/etat-batonnet-map-generator';
 
 @Component({
   selector: 'app-board-batonnets',
@@ -15,57 +15,31 @@ import { EtatBatonnet } from '../model/etat-batonnet.model';
   }
   `
 })
-export class BoardBatonnetsComponent implements OnInit {
+export class BoardBatonnetsComponent {
   protected etatPlateau: EtatPlateau = {
     indexBatonnetCourant: 1, 
-    nbBatonnetSelectionne: 1
+    nbBatonnetSelectionne: 1,
+    etatBatonnetMap: EtatBatonnetMapGenerator.creerMapBatonnet()
   };
 
-  maxIndexBatonnetSelectionne = signal(1);
-
-  ngOnInit() {
-    this.debutPartie();
+  handlerChangementEtatBatonnet(indiceBatonnet: number) {
+    this.reinitialiserPlateau(indiceBatonnet);
   }
 
-  public creerListeBatonnet() {
-    return Array.from(
-      {length: BoardBatonnetsComponent.nombreTotalBatonnets()}, 
-      (_, i) => i + 1
-    );
-  }
-
-  public static nombreTotalBatonnets() {
-    return 20;
-  }
-
-  debutPartie() {
-    this.etatPlateau = {
-      indexBatonnetCourant: 1, 
-      nbBatonnetSelectionne: 1
-    };
-  }
-
-  nbBatonnetSelectionneDebutTour() {
-    this.etatPlateau = {
-      indexBatonnetCourant: 
-        this.etatPlateau === undefined ? 
-        1 : 
-        this.etatPlateau.indexBatonnetCourant,
-      nbBatonnetSelectionne: 1
-    };
-  }
-
-  handlerEtatBatonnetUpdate(event: Event) {
-    this.maxIndexBatonnetSelectionne.update(ancienIndex => {
-      const etatBatonnet = (event as CustomEvent).detail as EtatBatonnet;
-      if(
-        etatBatonnet && 
-        etatBatonnet.etat === AdaptativeBatonnetComponent.SELECTIONNE && 
-        ancienIndex < etatBatonnet.index) {
-        return etatBatonnet.index;
+  private reinitialiserPlateau(indice: number) {
+    for(const etatBatonnet of this.etatPlateau.etatBatonnetMap.values()) {
+      let nouvelEtat: number = EtatBatonnetMapGenerator.SUR_PLATEAU;
+      if(etatBatonnet.index <= indice) {
+        nouvelEtat = EtatBatonnetMapGenerator.SELECTIONNE;
+      } else if(etatBatonnet.index < this.etatPlateau.indexBatonnetCourant) {
+        nouvelEtat = EtatBatonnetMapGenerator.RETIRER_DU_PLATEAU;
       }
-      return ancienIndex;
-    });
+      const nouveauEtatBatonnet = {
+        index: etatBatonnet.index,
+        etat: nouvelEtat
+      };
+      this.etatPlateau.etatBatonnetMap.set(nouveauEtatBatonnet.index, nouveauEtatBatonnet);
+    }
   }
 
 }

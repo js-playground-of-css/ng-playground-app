@@ -3,11 +3,11 @@
     Jeu du bâtonnets : plateau
     </p>
     <p id="board">
-    @for(indexBatonnet of this.creerListeBatonnet() ; track indexBatonnet) {
+    @for(etatBatonnet of this.etatPlateau.etatBatonnetMap.values(); track etatBatonnet.index) {
         <app-adaptative-batonnet 
             [inputEtatPlateau]="this.etatPlateau" 
-            [inputIndexBatonnet]="indexBatonnet" 
-            (onUpdateEtatBatonnet)="handlerEtatBatonnetUpdate($event)" />
+            [inputEtatBatonnet]="etatBatonnet"
+            (outputIndiceBatonnet)="handlerChangementEtatBatonnet($event)" />
     }
     </p>
 </div>
