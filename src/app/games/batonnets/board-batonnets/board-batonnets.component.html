@@ -10,4 +10,9 @@
             (outputIndiceBatonnet)="handlerChangementEtatBatonnet($event)" />
     }
     </p>
+    @if(this.etatPlateau.nbBatonnetSelectionne > 0) {
+    <p id="action-bar">
+        <button id="play-btn" class="btn btn-success" >Jouer</button>
+    </p>
+    }
 </div>

@@ -13,12 +13,20 @@ import { EtatBatonnetMapGenerator } from '../utils/etat-batonnet-map-generator';
     display: inline-block;
     margin-left: 24%;
   }
+  #action-bar {
+    width: 640px;
+    margin-left: 24%;
+    text-align: center;
+  }
+  #play-btn {
+    float: clear;
+  }
   `
 })
 export class BoardBatonnetsComponent {
   protected etatPlateau: EtatPlateau = {
     indexBatonnetCourant: 1, 
-    nbBatonnetSelectionne: 1,
+    nbBatonnetSelectionne: 0,
     etatBatonnetMap: EtatBatonnetMapGenerator.creerMapBatonnet()
   };
 
@@ -27,6 +35,7 @@ export class BoardBatonnetsComponent {
   }
 
   private reinitialiserPlateau(indice: number) {
+    this.etatPlateau.nbBatonnetSelectionne = 0;
     for(const etatBatonnet of this.etatPlateau.etatBatonnetMap.values()) {
       let nouvelEtat: number = EtatBatonnetMapGenerator.SUR_PLATEAU;
       if(etatBatonnet.index <= indice) {
@@ -38,6 +47,9 @@ export class BoardBatonnetsComponent {
         index: etatBatonnet.index,
         etat: nouvelEtat
       };
+      if(nouvelEtat === EtatBatonnetMapGenerator.SELECTIONNE) {
+        this.etatPlateau.nbBatonnetSelectionne++;
+      }
       this.etatPlateau.etatBatonnetMap.set(nouveauEtatBatonnet.index, nouveauEtatBatonnet);
     }
   }

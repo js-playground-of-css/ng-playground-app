@@ -41,14 +41,6 @@ export class AdaptativeBatonnetComponent {
 
   constructor() {}
 
-  inverserEtat() {
-    if(this.inputEtatBatonnet().etat === EtatBatonnetMapGenerator.SELECTIONNE) {
-        this.inputEtatPlateau().nbBatonnetSelectionne++;
-    } else {
-      this.inputEtatPlateau().nbBatonnetSelectionne--;
-    }
-  }
-
   onChangementEtatBatonnet() {
     if(
       (
@@ -57,7 +49,6 @@ export class AdaptativeBatonnetComponent {
       ) ||
       this.inputEtatBatonnet().etat === EtatBatonnetMapGenerator.SELECTIONNE
     ) {
-      this.inverserEtat();
       this.outputIndiceBatonnet.emit(this.inputEtatBatonnet().index);
     }
   }
