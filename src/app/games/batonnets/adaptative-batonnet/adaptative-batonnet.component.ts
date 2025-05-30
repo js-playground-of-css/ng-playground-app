@@ -44,10 +44,13 @@ export class AdaptativeBatonnetComponent {
   onChangementEtatBatonnet() {
     if(
       (
-        this.inputEtatPlateau().nbBatonnetSelectionne <= 3 &&
-        (this.inputEtatBatonnet().index - this.inputEtatPlateau().indexBatonnetCourant + 1) <= 3
-      ) ||
-      this.inputEtatBatonnet().etat === EtatBatonnetMapGenerator.SELECTIONNE
+          (
+          this.inputEtatPlateau().nbBatonnetSelectionne <= 3 &&
+          (this.inputEtatBatonnet().index - this.inputEtatPlateau().indexBatonnetCourant + 1) <= 3
+        ) ||
+        this.inputEtatBatonnet().etat === EtatBatonnetMapGenerator.SELECTIONNE
+      ) && 
+      this.inputEtatPlateau().aToiDeJouer
     ) {
       this.outputIndiceBatonnet.emit(this.inputEtatBatonnet().index);
     }

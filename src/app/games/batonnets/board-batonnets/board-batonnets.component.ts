@@ -25,6 +25,7 @@ import { EtatBatonnetMapGenerator } from '../utils/etat-batonnet-map-generator';
 })
 export class BoardBatonnetsComponent {
   protected etatPlateau: EtatPlateau = {
+    aToiDeJouer: true,
     indexBatonnetCourant: 1, 
     nbBatonnetSelectionne: 0,
     etatBatonnetMap: EtatBatonnetMapGenerator.creerMapBatonnet()
@@ -34,13 +35,32 @@ export class BoardBatonnetsComponent {
     this.reinitialiserPlateau(indiceBatonnet);
   }
 
+  handlerCliqueJouer() {
+    this.etatPlateau.indexBatonnetCourant = this.nextIndice();
+    this.reinitialiserPlateau(-1);
+    this.etatPlateau.aToiDeJouer = false;
+  }
+
+  private nextIndice(): number {
+    let indiceSuivant = this.etatPlateau.indexBatonnetCourant;
+    for(const etatBatonnet of this.etatPlateau.etatBatonnetMap.values()) {
+      if(
+        indiceSuivant < etatBatonnet.index && 
+        etatBatonnet.etat === EtatBatonnetMapGenerator.SELECTIONNE
+      ) {
+        indiceSuivant = etatBatonnet.index;
+      }
+    }
+    return indiceSuivant;
+  }
+
   private reinitialiserPlateau(indice: number) {
     this.etatPlateau.nbBatonnetSelectionne = 0;
     for(const etatBatonnet of this.etatPlateau.etatBatonnetMap.values()) {
       let nouvelEtat: number = EtatBatonnetMapGenerator.SUR_PLATEAU;
       if(etatBatonnet.index <= indice) {
         nouvelEtat = EtatBatonnetMapGenerator.SELECTIONNE;
-      } else if(etatBatonnet.index < this.etatPlateau.indexBatonnetCourant) {
+      } else if(etatBatonnet.index <= this.etatPlateau.indexBatonnetCourant) {
         nouvelEtat = EtatBatonnetMapGenerator.RETIRER_DU_PLATEAU;
       }
       const nouveauEtatBatonnet = {

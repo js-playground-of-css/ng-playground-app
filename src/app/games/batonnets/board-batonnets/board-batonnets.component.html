@@ -12,7 +12,11 @@
     </p>
     @if(this.etatPlateau.nbBatonnetSelectionne > 0) {
     <p id="action-bar">
-        <button id="play-btn" class="btn btn-success" >Jouer</button>
+        <button 
+            id="play-btn" 
+            class="btn btn-success" 
+            (click)="handlerCliqueJouer()"
+            >Jouer</button>
     </p>
     }
 </div>
