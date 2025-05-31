@@ -15,3 +15,14 @@ Remarque : nécessite NodeJS et NPM pour suivre le mode opératoire.
 - Placez-vous à la racine du projet.
 - Installer les dépendances : `npm install`.
 - Et enfin, lancer le projet : `ng serve`.
+
+## Tour du projet
+
+### Démonstrations techniques
+
+- Signal
+- Directive
+
+### Jeu
+
+- Jeu du bâtonnets
