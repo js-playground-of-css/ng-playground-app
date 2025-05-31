@@ -3,6 +3,7 @@ import { AdaptativeBatonnetComponent } from '../adaptative-batonnet/adaptative-b
 import { EtatPlateau } from '../model/etat-plateau.model';
 import { EtatBatonnetMapGenerator } from '../utils/etat-batonnet-map-generator';
 import { ClaudIa } from '../ia/claud.ia';
+import { EtatBatonnet } from '../model/etat-batonnet.model';
 
 @Component({
   selector: 'app-board-batonnets',
@@ -69,30 +70,69 @@ export class BoardBatonnetsComponent {
           etatBatonnet.etat === EtatBatonnetMapGenerator.RETIRER_DU_PLATEAU
         )
       ) {
-        indiceSuivant = etatBatonnet.index;
+        indiceSuivant = etatBatonnet.index + 1;
       }
     }
     return indiceSuivant;
   }
 
   private reinitialiserPlateau(indice: number) {
+    console.log('resetBoard');
     this.etatPlateau.nbBatonnetSelectionne = 0;
     for(const etatBatonnet of this.etatPlateau.etatBatonnetMap.values()) {
-      let nouvelEtat: number = EtatBatonnetMapGenerator.SUR_PLATEAU;
-      if(etatBatonnet.index <= this.etatPlateau.indexBatonnetCourant) {
-        nouvelEtat = EtatBatonnetMapGenerator.RETIRER_DU_PLATEAU;
-      } else if(etatBatonnet.index <= indice) {
-        nouvelEtat = EtatBatonnetMapGenerator.SELECTIONNE;
+      let nouveauEtatBatonnet = etatBatonnet;
+      if(this.isChangerEtatBatonnet(indice)) {
+        nouveauEtatBatonnet = this.changerEtatBatonnet(etatBatonnet, indice);
       }
-      const nouveauEtatBatonnet = {
-        index: etatBatonnet.index,
-        etat: nouvelEtat
-      };
+      const nouvelEtat = nouveauEtatBatonnet.etat;
       if(nouvelEtat === EtatBatonnetMapGenerator.SELECTIONNE) {
         this.etatPlateau.nbBatonnetSelectionne++;
       }
       this.etatPlateau.etatBatonnetMap.set(nouveauEtatBatonnet.index, nouveauEtatBatonnet);
     }
+  }
+
+  private isChangerEtatBatonnet(indice: number) : boolean {
+    const batonnet = this.etatPlateau.etatBatonnetMap.get(indice);
+    return (
+      (
+        batonnet != undefined &&
+        (
+          batonnet.etat === EtatBatonnetMapGenerator.SELECTIONNE ||
+          batonnet.etat === EtatBatonnetMapGenerator.SUR_PLATEAU
+        )
+      ) ||
+      indice === -1
+    );
+  }
+
+  private changerEtatBatonnet(
+    etatBatonnet: EtatBatonnet, 
+    indice: number
+  ): EtatBatonnet {
+    let nouvelEtat: number = EtatBatonnetMapGenerator.SUR_PLATEAU;
+    if(
+      etatBatonnet.index >= this.etatPlateau.indexBatonnetCourant &&
+      etatBatonnet.index <= indice && 
+      (
+        etatBatonnet.etat === EtatBatonnetMapGenerator.SUR_PLATEAU ||
+        etatBatonnet.etat === EtatBatonnetMapGenerator.SELECTIONNE
+      )
+    ) {
+      nouvelEtat = EtatBatonnetMapGenerator.SELECTIONNE;
+    } else if(
+      etatBatonnet.index < this.etatPlateau.indexBatonnetCourant &&
+      (
+        etatBatonnet.etat === EtatBatonnetMapGenerator.SELECTIONNE ||
+        etatBatonnet.etat === EtatBatonnetMapGenerator.RETIRER_DU_PLATEAU
+      )
+    ) {
+      nouvelEtat = EtatBatonnetMapGenerator.RETIRER_DU_PLATEAU;
+    }
+    return {
+      index: etatBatonnet.index,
+      etat: nouvelEtat
+    };
   }
 
 }
