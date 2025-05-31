@@ -2,6 +2,7 @@
     <p>
     Jeu du bâtonnets : plateau
     </p>
+    @if( ! this.partieEstFinie() ) {
     <p id="board">
     @for(etatBatonnet of this.etatPlateau.etatBatonnetMap.values(); track etatBatonnet.index) {
         <app-adaptative-batonnet 
@@ -10,13 +11,24 @@
             (outputIndiceBatonnet)="handlerChangementEtatBatonnet($event)" />
     }
     </p>
-    @if(this.etatPlateau.nbBatonnetSelectionne > 0 && this.etatPlateau.aToiDeJouer) {
+    } @else if(this.partieEstGagnee()) {
+    <p class="statut-partie">Félicitations, vous avez gagné ! GGWP</p>
+    } @else {
+    <p class="statut-partie">Vous avez perdu ! FF</p>
+    }
     <p id="action-bar">
+        @if(this.partieEstFinie()) {
+        <button
+            id="retry-btn"
+            class="btn btn-primary"
+            (click)="handleRejouer()"
+            >Rejouer</button>
+        } @else if(this.etatPlateau.nbBatonnetSelectionne > 0 && this.etatPlateau.aToiDeJouer) {
         <button 
             id="play-btn" 
             class="btn btn-success" 
             (click)="handlerCliqueJouer()"
             >Jouer</button>
+        }
     </p>
-    }
 </div>

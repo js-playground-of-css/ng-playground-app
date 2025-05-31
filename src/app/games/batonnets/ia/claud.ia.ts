@@ -1,6 +1,6 @@
 import { NumberUtils } from "../../../utils/number-utils";
 import { EtatPlateauSimplifie } from "../model/etat-plateau-simplifie.model";
-import { EtatBatonnetMapGenerator } from "../utils/etat-batonnet-map-generator";
+import { CompterBatonnetRule } from "../rule/compter-batonnet.rule";
 
 export class ClaudIa {
 
@@ -8,9 +8,11 @@ export class ClaudIa {
 
     public jouer(): number {
         let nombreBatonnetSelectionne = 0;
-        const nbBatonnetSelectionnable = this.compterNombreBatonnetSelectionnable();
+        const nbBatonnetSelectionnable = 
+            CompterBatonnetRule
+                .compterBatonnetSelectionnable(this.etatPlateau.etatBatonnetMap);
         if(nbBatonnetSelectionnable <= 4) {
-            // Phase finale
+            // Phase finale :
             const jourDeChance : boolean = (
                 NumberUtils.tirerAleatoirementNombreEntier(0, 1000000) % 2 == 0
             );
@@ -33,16 +35,6 @@ export class ClaudIa {
             nombreBatonnetSelectionne = NumberUtils.tirerAleatoirementNombreEntier(1, 3);
         }
         return nombreBatonnetSelectionne;
-    }
-
-    private compterNombreBatonnetSelectionnable(): number {
-        let nbBatonnetSelectionnable: number = 0;
-        this.etatPlateau.etatBatonnetMap.forEach((etatBatonnet) => {
-            if(etatBatonnet.etat === EtatBatonnetMapGenerator.SUR_PLATEAU) {
-                nbBatonnetSelectionnable++;
-            }
-        });
-        return nbBatonnetSelectionnable;
     }
 
 }

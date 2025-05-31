@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { AdaptativeBatonnetComponent } from '../adaptative-batonnet/adaptative-batonnet.component';
 import { EtatPlateau } from '../model/etat-plateau.model';
 import { EtatBatonnetMapGenerator } from '../utils/etat-batonnet-map-generator';
 import { ClaudIa } from '../ia/claud.ia';
 import { EtatBatonnet } from '../model/etat-batonnet.model';
+import { CompterBatonnetRule } from '../rule/compter-batonnet.rule';
+import { PartieEtat } from '../etat/partie.etat';
 
 @Component({
   selector: 'app-board-batonnets',
@@ -23,6 +25,12 @@ import { EtatBatonnet } from '../model/etat-batonnet.model';
   #play-btn {
     float: clear;
   }
+  .statut-partie {
+    width: 640px;
+    margin-left: 24%;
+    text-align: center;
+    font-size: 40px;
+  }
   `
 })
 export class BoardBatonnetsComponent {
@@ -33,6 +41,11 @@ export class BoardBatonnetsComponent {
     etatBatonnetMap: EtatBatonnetMapGenerator.creerMapBatonnet()
   };
 
+  etatPartie = signal<number>(PartieEtat.EN_COURS);
+  partieEstFinie = computed(() => (this.etatPartie() !== PartieEtat.EN_COURS));
+  partieEstGagnee = computed(() => (this.etatPartie() !== PartieEtat.GAGNEE));
+  partieEstPerdue = computed(() => (this.etatPartie() !== PartieEtat.PERDUE));
+
   handlerChangementEtatBatonnet(indiceBatonnet: number) {
     this.reinitialiserPlateau(indiceBatonnet);
   }
@@ -41,7 +54,14 @@ export class BoardBatonnetsComponent {
     this.etatPlateau.indexBatonnetCourant = this.nextIndice();
     this.reinitialiserPlateau(-1);
     this.etatPlateau.aToiDeJouer = false; // au tour de l'IA...
-    this.faireJouerIA();
+    this.finDePartie();
+    if(this.etatPartie() === PartieEtat.EN_COURS) {
+      this.faireJouerIA();
+    }
+  }
+
+  handleRejouer() {
+    this.reinitialiserPartie();
   }
 
   private faireJouerIA() {
@@ -52,11 +72,11 @@ export class BoardBatonnetsComponent {
     this.reinitialiserPlateau(-1);
     this.etatPlateau.aToiDeJouer = true; // au tour du joueur...
     this.etatPlateau.nbBatonnetSelectionne = 0;
+    this.finDePartie();
   }
 
   private calculerIndiceBatonnetSelectionne(nbBatonnetASelectionner: number): number {
     const indiceBatonnet = (this.etatPlateau.indexBatonnetCourant + nbBatonnetASelectionner);
-    console.log(`indiceCourant = ${this.etatPlateau.indexBatonnetCourant} ; nbBatonnet = ${nbBatonnetASelectionner} => indiceOutput = ${indiceBatonnet}`);
     return indiceBatonnet;
   }
 
@@ -77,7 +97,6 @@ export class BoardBatonnetsComponent {
   }
 
   private reinitialiserPlateau(indice: number) {
-    console.log('resetBoard');
     this.etatPlateau.nbBatonnetSelectionne = 0;
     for(const etatBatonnet of this.etatPlateau.etatBatonnetMap.values()) {
       let nouveauEtatBatonnet = etatBatonnet;
@@ -133,6 +152,36 @@ export class BoardBatonnetsComponent {
       index: etatBatonnet.index,
       etat: nouvelEtat
     };
+  }
+
+  private finDePartie() {
+    const nbBatonnetSelectionnable = 
+      CompterBatonnetRule
+        .compterBatonnetSelectionnable(this.etatPlateau.etatBatonnetMap);
+    if(nbBatonnetSelectionnable <= 1) {
+      if(this.etatPlateau.aToiDeJouer) {
+        this.etatPartie.set(PartieEtat.PERDUE);
+      } else {
+        this.etatPartie.set(PartieEtat.GAGNEE);
+      }
+    }
+  }
+
+  private reinitialiserPartie() {
+    // Réinitialiser plateau
+    for(const etatBatonnet of this.etatPlateau.etatBatonnetMap.values()) {
+      const nouveauEtatBatonnet = {
+        etat: EtatBatonnetMapGenerator.SUR_PLATEAU,
+        index: etatBatonnet.index
+      };
+      this.etatPlateau.etatBatonnetMap.set(nouveauEtatBatonnet.index, nouveauEtatBatonnet);
+    }
+    // Réinitialiser autre méta données
+    this.etatPlateau.aToiDeJouer = true;
+    this.etatPlateau.indexBatonnetCourant = 1;
+    this.etatPlateau.nbBatonnetSelectionne = 0;
+    // Réinitialiser l'état de la partie
+    this.etatPartie.set(PartieEtat.EN_COURS);
   }
 
 }
