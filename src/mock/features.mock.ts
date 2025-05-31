@@ -18,7 +18,7 @@ export const FEATURE_LIST: Feature[] = [
     {
         id: 33,
         title: 'Jeu du bâtonnets',
-        path: './',
+        path: 'src/app/games/batonnets',
         type: 'jeu',
         url: 'games/batonnets'
     }
