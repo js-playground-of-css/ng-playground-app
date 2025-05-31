@@ -31,4 +31,11 @@
             >Jouer</button>
         }
     </p>
+    @if( ! this.partieEstFinie() ) {
+    <p id="dev-notice">
+        Actuellement une seule IA : ClaudIa est disponible !<br />
+        <br />
+        ClaudIa vous laissera volontiers gagner si c'est votre jour de chance !
+    </p>
+    }
 </div>

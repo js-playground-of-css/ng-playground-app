@@ -17,8 +17,13 @@ import { PartieEtat } from '../etat/partie.etat';
     display: inline-block;
     margin-left: 24%;
   }
+  #dev-notice {
+    width: 640px;
+    margin-left: 24%;
+  }
   #action-bar {
     width: 640px;
+    height: 50px;
     margin-left: 24%;
     text-align: center;
   }
