@@ -18,6 +18,8 @@ Remarque : nécessite NodeJS et NPM pour suivre le mode opératoire.
 
 ## Tour du projet
 
+[Documentation détaillé](./docs/README.MD)
+
 ### Démonstrations techniques
 
 - Signal
@@ -26,3 +28,9 @@ Remarque : nécessite NodeJS et NPM pour suivre le mode opératoire.
 ### Jeu
 
 - Jeu du bâtonnets
+
+### Application
+
+- Jours fériés français (Work In Progress)
+
+[Plus de détails sur les applications](./docs/sub-app/README.MD)
