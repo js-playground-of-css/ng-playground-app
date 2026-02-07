@@ -32,6 +32,8 @@ export class FeatureBorderDirective {
         return '#0099ff';
       case 'jeu':
         return '#ff3300';
+      case 'app':
+          return 'orange'
       default:
         return '#4080bf';
     }

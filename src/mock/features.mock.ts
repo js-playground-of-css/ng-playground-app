@@ -21,5 +21,12 @@ export const FEATURE_LIST: Feature[] = [
         path: 'src/app/games/batonnets',
         type: 'jeu',
         url: 'games/batonnets'
+    },
+    {
+        id: 42,
+        title: 'Jours fériés français',
+        path: 'src/app/sub-app/jours-feries-fr',
+        type: 'app',
+        url: 'sub-app/jours-feries-fr'
     }
 ];
