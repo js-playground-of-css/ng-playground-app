@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { JoursFeriesFrService } from '../services/jours-feries-fr.service';
 import { DateUtils } from '../../../utils/date-utils';
@@ -9,12 +9,21 @@ import { JoursFeries } from '../model/jours-feries';
   imports: [],
   template: `
     <p class="text-white" >
-      Jours fériés français WIP ;)
+      Prochain jours fériés : {{libelleProchainJoursFeries()}}
     </p>
   `,
   styles: ``
 })
 export class JoursFeriesPageComponent implements OnInit {
+    prochainJoursFeries = signal<JoursFeries|null>(null);
+
+    libelleProchainJoursFeries = computed(() => {
+        let libelle = 'ND';
+        if(this.prochainJoursFeries() !== null) {
+            libelle = (this.prochainJoursFeries() as JoursFeries).getLibelle();
+        }
+        return libelle;
+    });
 
     private joursFeriesFrService = inject(JoursFeriesFrService);
 
@@ -39,18 +48,16 @@ export class JoursFeriesPageComponent implements OnInit {
         const data = localStorage.getItem(`${anneeActuelle}`);
         if(data !== null) {
             const now : Date = new Date();
-            let prochainJoursFeries : JoursFeries | null = null;
             // Parsing des données JSON
             const dataObj = Object.entries(JSON.parse(data));
             // Récupération du prochain jours fériés
-            for(let index = 0 ; index < dataObj.length && prochainJoursFeries == null ; index++) {
+            for(let index = 0 ; index < dataObj.length && this.prochainJoursFeries() == null ; index++) {
                 const cle : string = dataObj[index][0];
                 const cleToDate : Date = DateUtils.stringToDate(cle);
                 if(now.getTime() < cleToDate.getTime()) {
-                    prochainJoursFeries = new JoursFeries(cle, dataObj[index][1] as string);
+                    this.prochainJoursFeries.set(new JoursFeries(cle, dataObj[index][1] as string));
                 }
             }
-            console.log(prochainJoursFeries);
         }
     }
 
