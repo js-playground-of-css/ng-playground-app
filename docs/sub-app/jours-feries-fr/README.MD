@@ -15,5 +15,6 @@ Afficher un aperçu des jours fériés français (en métropole) pour l'année c
 
 ### Idée tableau de bord
 
-- Afficher les jours fériés passé par ordre du plus récent au plus éloigné.
+- [TODO] Afficher les jours fériés passé par ordre du plus récent au plus éloigné.
+- [TODO] Rafraichir page automatiquement.
 - Afficher le nombre de jours restant avant le prochain jours fériés.
