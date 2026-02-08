@@ -8,7 +8,7 @@ import { JoursFeries } from '../model/jours-feries';
   selector: 'jours-feries-page',
   imports: [],
   template: `
-    <p class="text-white" >
+    <p class="text-white m-2" >
       Prochain jours fériés : {{libelleProchainJoursFeries()}}
     </p>
   `,
