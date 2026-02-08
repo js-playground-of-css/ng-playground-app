@@ -1,0 +1,11 @@
+
+export class DateConstants {
+   static FLAG_LEFT_DATE_IS_EARLIER_THAN_RIGHT_DATE = -1;
+   static FLAG_LEFT_DATE_IS_LATER_THAN_RIGHT_DATE = 1;
+   static FLAG_LEFT_DATE_IS_EQUAL_TO_RIGHT_DATE = 0;
+
+   static UNIT_DURATION_ATM = 0;
+   static UNIT_DURATION_MINUTE = 1;
+   static UNIT_DURATION_HOUR = 2;
+   static UNIT_DURATION_DAY = 3;
+}
