@@ -28,5 +28,12 @@ export const FEATURE_LIST: Feature[] = [
         path: 'src/app/sub-app/jours-feries-fr',
         type: 'app',
         url: 'sub-app/jours-feries-fr'
+    },
+    {
+        id: 79,
+        title: 'Bibliothèque jeux vidéos',
+        path: 'src/app/sub-app/jv-info/jv-auth-page',
+        type: 'app',
+        url: 'sub-app/jv-info/auth'
     }
 ];
