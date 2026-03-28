@@ -16,6 +16,17 @@ Remarque : nécessite NodeJS et NPM pour suivre le mode opératoire.
 - Installer les dépendances : `npm install`.
 - Et enfin, lancer le projet : `ng serve`.
 
+Dans la partie suivante vous avez quelques explications pour déployer l'application dans Docker.
+
+## Déploiement
+
+### Via Docker
+
+- Cloner le dépôt !
+- Placez vous dans le projet.
+- Construire l'image Docker : `docker build -t ng-playground-app:latest .`
+- Puis lancer le conteneur.
+
 ## Tour du projet
 
 [Documentation détaillé](./docs/README.MD)
