@@ -43,5 +43,6 @@ Dans la partie suivante vous avez quelques explications pour déployer l'applica
 ### Application
 
 - Jours fériés français (Work In Progress)
+- Bibliothèque de jeux vidéos (Work In Progress)
 
 [Plus de détails sur les applications](./docs/sub-app/README.MD)
