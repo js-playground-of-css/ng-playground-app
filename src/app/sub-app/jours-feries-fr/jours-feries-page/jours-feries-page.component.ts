@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, OnDestroy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { JoursFeriesFrService } from '../services/jours-feries-fr.service';
 import { DateUtils } from '../../../utils/date-utils';
@@ -17,8 +17,11 @@ import { DateConstants } from '../../../constants/date-constants';
   `,
   styles: ``
 })
-export class JoursFeriesPageComponent implements OnInit {
+export class JoursFeriesPageComponent implements OnInit, OnDestroy {
+    NO_EVENT : number = -1;
     prochainJoursFeries = signal<JoursFeries|null>(null);
+    timeoutId : number = this.NO_EVENT;
+    nbRetry : number = 0;
 
     libelleProchainJoursFeries = computed(() => {
         let libelle = 'ND';
@@ -61,16 +64,15 @@ export class JoursFeriesPageComponent implements OnInit {
         const anneeActuelle : number = (new Date()).getFullYear();
         const data = localStorage.getItem(`${anneeActuelle}`);
         if(data == null) {
-            this.joursFeriesFrService.getDataPourMetropole(anneeActuelle).subscribe({
-                next: (data) => {
-                    localStorage.setItem(`${anneeActuelle}`, JSON.stringify(data));
-                },
-                error: (err) => {
-                    console.log(err);
-                }
-            });
+            this.chargerJoursFeries();
         }
         this.recupererProchainJoursFerie();
+    }
+
+    ngOnDestroy() {
+        if(this.timeoutId !== this.NO_EVENT) {
+            clearTimeout(this.timeoutId);
+        }
     }
 
     recupererProchainJoursFerie() {
@@ -88,7 +90,50 @@ export class JoursFeriesPageComponent implements OnInit {
                     this.prochainJoursFeries.set(new JoursFeries(cle, dataObj[index][1] as string));
                 }
             }
+            // On repase le retry à zéro
+            this.nbRetry = 0;
+            // rappeler dans quelques temps
+            if(this.timeoutId !== this.NO_EVENT) {
+                clearTimeout(this.timeoutId);
+            }
+            this.timeoutId = setInterval(() => {
+                this.recupererProchainJoursFerie();
+            }, this.calculerDelaiAvantProchainRafraichissement());
+        } else {
+            // On charge les données de l'année car il y a problamment eu un changement d'année
+            this.chargerJoursFeries();
+            // On retente de les affichés si c'est la première tentative
+            if(this.nbRetry == 0) {
+                this.recupererProchainJoursFerie();
+            }
+            this.nbRetry++;
         }
+    }
+
+    chargerJoursFeries() {
+        const anneeActuelle : number = (new Date()).getFullYear();
+        this.joursFeriesFrService.getDataPourMetropole(anneeActuelle).subscribe({
+            next: (data) => {
+                localStorage.setItem(`${anneeActuelle}`, JSON.stringify(data));
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+    }
+
+    calculerDelaiAvantProchainRafraichissement() : number {
+        const aujourdhui = new Date();
+        const deltaHeure = 23 - aujourdhui.getHours();
+        const deltaMinutes = 59 - aujourdhui.getMinutes();
+        const deltaSecondes = 59 - aujourdhui.getSeconds();
+        const deltaMillisecondes = 999 - aujourdhui.getMilliseconds();
+        return (
+            ( deltaHeure * (60*60*1000) ) +
+            ( deltaMinutes * (60*1000) ) +
+            ( deltaSecondes * 1000 ) +
+            deltaMillisecondes + 15
+        );
     }
 
 }
