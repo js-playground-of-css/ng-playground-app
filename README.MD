@@ -25,7 +25,7 @@ Dans la partie suivante vous avez quelques explications pour déployer l'applica
 - Cloner le dépôt !
 - Placez vous dans le projet.
 - Construire l'image Docker : `docker build -t ng-playground-app:latest .`
-- Puis lancer le conteneur.
+- Puis créer le conteneur (s'il s'agit du premier lancement) : `docker run -d --name ng-playground-app -p 8019:80 ng-playground-app:latest`, sinon lancer le conteneur via Docker.
 
 ## Tour du projet
 
