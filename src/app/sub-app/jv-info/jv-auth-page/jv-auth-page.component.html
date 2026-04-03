@@ -6,11 +6,11 @@
     </div>
     <div class="mb-3">
         <label for="formClientID" class="form-label">Client ID</label>
-        <input type="clientID" class="form-control" id="formClientID" >
+        <input type="clientID" class="form-control" id="formClientID" [(ngModel)]="this.authCredentials.clientID" name="clientID" #clientID="ngModel" >
     </div>
     <div class="mb-3">
         <label for="formSecret" class="form-label">Secret</label>
-        <input type="password" class="form-control" id="formSecret">
+        <input type="password" class="form-control" id="formSecret" [(ngModel)]="this.authCredentials.secret" name="secret" #secret="ngModel" >
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button class="btn btn-primary" (click)="seConnecter()" >Se connecter</button>
 </form>

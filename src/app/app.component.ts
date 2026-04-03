@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
+import { JvAuthPageComponent } from './sub-app/jv-info/jv-auth-page/jv-auth-page.component';
 
 @Component({
   selector: 'app-root',
