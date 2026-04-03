@@ -1,5 +1,6 @@
 <div class="text-white m-2" >
-    <p>
-        Bienvenue sur la page de recherche WIP
-    </p>
+    <div>
+        <input class="w-50" type="search" placeholder="Rechercher un jeu vidéo" aria-label="Nom d'un jeu vidéo" [(ngModel)]="this.searchRequest.keywords" name="keywords" #keywords="ngModel" />
+        <button class="btn btn-outline-success ms-2" (click)="rechercher()" >Rechercher</button>
+    </div>
 </div>
