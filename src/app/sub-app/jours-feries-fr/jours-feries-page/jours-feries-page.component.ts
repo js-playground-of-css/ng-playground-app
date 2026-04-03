@@ -46,10 +46,8 @@ export class JoursFeriesPageComponent implements OnInit, OnDestroy {
                 } else {
                     libelleDuree = `dans ${durationObj.getLabel()} jours`;
                 }
-            } else if(durationObj.getUnit() === DateConstants.UNIT_DURATION_HOUR) {
-                libelleDuree = `dans ${durationObj.getLabel()} heures`;
             } else {
-                libelleDuree = `dans ${durationObj.getLabel()} minutes`;
+                libelleDuree = `(prochainement)`;
             }
         }
         return libelleDuree;
