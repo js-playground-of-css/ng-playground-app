@@ -84,6 +84,8 @@ export class JoursFeriesPageComponent implements OnInit, OnDestroy {
             // Récupération du prochain jours fériés
             let lastDate = nowDate.getTime();
             let indexJoursFeries = 0;
+            // on réinitialise la liste (des jours fériés suivants)
+            this.joursFeriesSuivant.set(new Array());
             for(let index = 0 ; index < dataObj.length ; index++) {
                 const cle : string = dataObj[index][0];
                 const cleToDate : Date = DateUtils.stringToDate(cle);
