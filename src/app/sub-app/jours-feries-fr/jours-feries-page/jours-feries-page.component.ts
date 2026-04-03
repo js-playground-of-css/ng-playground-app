@@ -10,16 +10,13 @@ import { DateConstants } from '../../../constants/date-constants';
 @Component({
   selector: 'jours-feries-page',
   imports: [],
-  template: `
-    <p class="text-white m-2" >
-      Prochain jours fériés : {{libelleProchainJoursFeries()}} {{dureeProchainJoursFeries()}}
-    </p>
-  `,
+  templateUrl: 'jours-feries-fr.component.html',
   styles: ``
 })
 export class JoursFeriesPageComponent implements OnInit, OnDestroy {
     NO_EVENT : number = -1;
     prochainJoursFeries = signal<JoursFeries|null>(null);
+    joursFeriesSuivant = signal<Array<JoursFeries>|null>(null);
     timeoutId : number = this.NO_EVENT;
     nbRetry : number = 0;
 
@@ -58,6 +55,8 @@ export class JoursFeriesPageComponent implements OnInit, OnDestroy {
         return libelleDuree;
     });
 
+    aJoursFeriesSuivant = computed(() => { return ( this.joursFeriesSuivant() !== null ); } );
+
     private joursFeriesFrService = inject(JoursFeriesFrService);
 
     ngOnInit() {
@@ -83,11 +82,26 @@ export class JoursFeriesPageComponent implements OnInit, OnDestroy {
             // Parsing des données JSON
             const dataObj = Object.entries(JSON.parse(data));
             // Récupération du prochain jours fériés
-            for(let index = 0 ; index < dataObj.length && this.prochainJoursFeries() == null ; index++) {
+            let lastDate = nowDate.getTime();
+            let indexJoursFeries = 0;
+            for(let index = 0 ; index < dataObj.length ; index++) {
                 const cle : string = dataObj[index][0];
                 const cleToDate : Date = DateUtils.stringToDate(cle);
-                if(nowDate.getTime() <= cleToDate.getTime()) {
-                    this.prochainJoursFeries.set(new JoursFeries(cle, dataObj[index][1] as string));
+                if(lastDate <= cleToDate.getTime()) {
+                    switch(indexJoursFeries) {
+                        case 0:
+                            this.prochainJoursFeries.set(new JoursFeries(cle, dataObj[index][1] as string));
+                            break;
+                        default:
+                            let joursFeriesApresList = this.joursFeriesSuivant();
+                            if(joursFeriesApresList == null) {
+                                joursFeriesApresList = new Array();
+                            }
+                            joursFeriesApresList.push(new JoursFeries(cle, dataObj[index][1] as string));
+                            this.joursFeriesSuivant.set(joursFeriesApresList);
+                    }
+                    lastDate = cleToDate.getTime();
+                    indexJoursFeries++;
                 }
             }
             // On repase le retry à zéro
