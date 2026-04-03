@@ -2,11 +2,13 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
+ARG APP_VERSION=v1.1.0
+
 # Installation de git
 RUN apk add --no-cache git
 
 # Clonage du dépôt
-RUN git clone https://github.com/js-playground-of-css/ng-playground-app.git .
+RUN git clone --branch ${APP_VERSION} --depth 1 https://github.com/js-playground-of-css/ng-playground-app.git .
 
 # Installation et Build
 RUN npm install
