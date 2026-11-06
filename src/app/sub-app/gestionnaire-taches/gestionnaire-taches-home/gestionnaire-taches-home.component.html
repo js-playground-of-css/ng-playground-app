@@ -7,7 +7,7 @@
     </p>
     <ul>
     @for(tache of taches(); track tache.todoId) {
-        <li>{{ tache.getTitle() }}</li>
+        <li>{{ tache.todoTitle }}</li>
     } @empty {
         <li>Aucune tâche trouvée.</li>
     }
