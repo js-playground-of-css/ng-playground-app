@@ -1,19 +1,22 @@
 <div class="btn-group m-2" role="group" aria-label="Prochains jours fériés">
-    <button type="button" class="btn btn-primary">
-        {{libelleProchainJoursFeries()}} <span class="badge text-bg-secondary">{{dureeProchainJoursFeries()}}</span>
+    <button type="button" class="btn-solid theme-primary">
+        {{libelleProchainJoursFeries()}} <span class="badge theme-subtle">{{dureeProchainJoursFeries()}}</span>
     </button>
-
+    
     @if(this.aJoursFeriesSuivant()) {
-    <div class="btn-group" role="group">
-        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline theme-primary" >
             Jours fériés suivants
         </button>
-
-        <ul class="dropdown-menu">
+        <button type="button" class="btn-outline theme-primary menu-toggle-split" data-bs-toggle="menu" aria-expanded="false" >
+            <svg class="bi" width="16" height="16" aria-hidden="true"><use href="#chevron-expand" /></svg>
+            <span class="visually-hidden">Toggle Menu</span>
+        </button>
+        <div class="menu">
             @for(joursFeriesApres of this.joursFeriesSuivant() ; track joursFeriesApres.getJoursStr()) {
-            <li><span class="dropdown-item" >{{joursFeriesApres.getLibelle()}}</span></li>
+            <span class="menu-item" >{{joursFeriesApres.getLibelle()}}</span>
             }
-        </ul>
+        </div>
     </div>
     }
 </div>
