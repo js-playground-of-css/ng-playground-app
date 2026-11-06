@@ -15,6 +15,10 @@ export class GestionnaireTachesService {
         return this.http.get<Array<Todo>>(`${this.urlService}todolist`);
     }
 
+    ajouterTache(nouvelleTache : Todo) : Observable<ResponseTodoList> {
+        return this.http.post<ResponseTodoList>(`${this.urlService}additem`, nouvelleTache);
+    }
+
     supprimerTache(id : number) : Observable<ResponseTodoList> {
         return this.http.delete<ResponseTodoList>(`${this.urlService}deleteitem/${id}`);
     }
