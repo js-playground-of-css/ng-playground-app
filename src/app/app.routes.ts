@@ -3,11 +3,13 @@ import { InventoryCounterComponent } from './inventory-counter/inventory-counter
 import { HomepageComponent } from './homepage/homepage.component';
 import { BoardBatonnetsComponent } from './games/batonnets/board-batonnets/board-batonnets.component';
 import { JoursFeriesPageComponent } from './sub-app/jours-feries-fr/jours-feries-page/jours-feries-page.component';
+import { GestionnaireTachesHomeComponent } from './sub-app/gestionnaire-taches/gestionnaire-taches-home/gestionnaire-taches-home.component';
 
 export const routes: Routes = [
 	{ path: 'home', title: 'Accueil', component: HomepageComponent },
 	{ path: 'inventaire/compteur', title: 'Signal : exemple inventaire', component: InventoryCounterComponent },
 	{ path: 'games/batonnets', title: 'Jeu du bâtonnets', component: BoardBatonnetsComponent },
 	{ path: 'sub-app/jours-feries-fr', title: 'Jours fériés français', component: JoursFeriesPageComponent },
+	{ path: 'sub-app/gestionnaire-taches', title: 'Gestionnaire rudimentaire de tâches', component: GestionnaireTachesHomeComponent },
 	{ path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

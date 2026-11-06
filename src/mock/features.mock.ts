@@ -28,5 +28,12 @@ export const FEATURE_LIST: Feature[] = [
         path: 'src/app/sub-app/jours-feries-fr',
         type: 'app',
         url: 'sub-app/jours-feries-fr'
+    },
+    {
+        id: 100,
+        title: 'Gestionnaire rudimentaire de tâches',
+        path: 'src/app/sub-app/gestionnaire-taches',
+        type: 'app',
+        url: 'sub-app/gestionnaire-taches'
     }
 ];
