@@ -1,4 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { GestionnaireTachesService } from '../services/gestionnaire-taches.service';
 import { Todo } from '../model/todo';
 
@@ -12,6 +13,8 @@ export class GestionnaireTachesHomeComponent implements OnInit {
     
     private gestionnaireTachesService = inject(GestionnaireTachesService);
 
+    readonly #router = inject(Router);
+
     taches = signal<Array<Todo>>([]);
 
     ngOnInit() {
@@ -22,7 +25,7 @@ export class GestionnaireTachesHomeComponent implements OnInit {
      * Ouvrir le formulaire d'ajout d'une tâche.
      */
     goToAddTask() {
-        console.log('Ne fait rien pour le moment.');
+        this.#router.navigate(['/sub-app/gestionnaire-taches/ajouter-tache']);
     }
 
     /**
