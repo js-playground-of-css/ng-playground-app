@@ -43,5 +43,6 @@ Dans la partie suivante vous avez quelques explications pour déployer l'applica
 ### Application
 
 - Jours fériés français (Work In Progress)
+- Gestionnaire rudimentaire de tâches
 
 [Plus de détails sur les applications](./docs/sub-app/README.MD)
