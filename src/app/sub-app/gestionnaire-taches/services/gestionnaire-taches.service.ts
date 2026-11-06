@@ -9,7 +9,7 @@ export class GestionnaireTachesService {
     private http = inject(HttpClient);
 
     getTaches() : Observable<Array<Todo>> {
-        return this.http.get<Array<Todo>>('http://localhost:8080/api/v1/todo/todolist');
+        return this.http.get<Array<Todo>>('http://localhost:18061/api/v1/todo/todolist');
     }
 
 }
