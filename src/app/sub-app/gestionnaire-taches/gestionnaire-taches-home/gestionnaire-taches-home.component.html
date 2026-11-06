@@ -5,11 +5,19 @@
         Le backend est assuré via le dépôt GitHub suivant : 
         <a href="https://github.com/java-playground-of-css/Todo-REST-API-Spring-Boot" >java-playground-of-css/Todo-REST-API-Spring-Boot</a>
     </p>
-    <ul>
+    <div class="list-group" >
     @for(tache of taches(); track tache.todoId) {
-        <li>{{ tache.todoTitle }}</li>
+        <span href="#" class="list-group-item list-group-item-action active" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+                <input class="form-check-input mb-1" type="checkbox" value="" id="{{ tache.todoId }}" />
+                <label class="form-check-label mb-1" for="{{ tache.todoId }}">{{ tache.todoTitle }}</label>
+                <small>{{ tache.todoDate }}</small>
+            </div>
+            <p class="mb-1">{{ tache.todoDescription }}</p>
+            <small>Créée le : {{ tache.creationDate }} / Modifiée le : {{ tache.updateDate }}</small>
+        </span>
     } @empty {
-        <li>Aucune tâche trouvée.</li>
+        <span>Aucune tâche trouvée.</span>
     }
-    </ul>
+    </div>
 </div>
