@@ -5,4 +5,11 @@
         Le backend est assuré via le dépôt GitHub suivant : 
         <a href="https://github.com/java-playground-of-css/Todo-REST-API-Spring-Boot" >java-playground-of-css/Todo-REST-API-Spring-Boot</a>
     </p>
+    <ul>
+    @for(tache of taches(); track tache.getId()) {
+        <li>{{ tache.getTitle() }}</li>
+    } @empty {
+        <li>Aucune tâche trouvée.</li>
+    }
+    </ul>
 </div>
