@@ -5,6 +5,9 @@
         Le backend est assuré via le dépôt GitHub suivant : 
         <a href="https://github.com/java-playground-of-css/Todo-REST-API-Spring-Boot" >java-playground-of-css/Todo-REST-API-Spring-Boot</a>
     </p>
+    <div class="d-grid gap-2 d-md-block">
+        <button class="btn btn-primary" type="button" (click)="this.goToAddTask();" >Ajouter</button>
+    </div>
     <div class="list-group w-50" >
     @for(tache of taches(); track tache.todoId) {
         <span class="list-group-item list-group-item-action" aria-current="true">
@@ -15,6 +18,10 @@
             </div>
             <p class="mb-1">{{ tache.todoDescription }}</p>
             <small>Créée le : {{ tache.creationDate }} / Modifiée le : {{ tache.updateDate }}</small>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary me-md-2" type="button" >Modifier</button>
+                <button class="btn btn-primary" type="button" (click)="this.supprimerTache(tache.todoId);" >Supprimer</button>
+            </div>
         </span>
     } @empty {
         <span class="list-group-item list-group-item-danger">Aucune tâche trouvée.</span>

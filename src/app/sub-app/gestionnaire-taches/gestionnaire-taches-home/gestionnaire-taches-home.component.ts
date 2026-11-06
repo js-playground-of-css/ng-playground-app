@@ -18,8 +18,33 @@ export class GestionnaireTachesHomeComponent implements OnInit {
         this.chargerTaches();
     }
 
+    /**
+     * Ouvrir le formulaire d'ajout d'une tâche.
+     */
+    goToAddTask() {
+        console.log('Ne fait rien pour le moment.');
+    }
+
+    /**
+     * Supprimer une tâche.
+     */
+    supprimerTache(id : number) {
+        this.gestionnaireTachesService.supprimerTache(id).subscribe({
+            next: (response) => {
+                if(response.code == 200) {
+                    this.chargerTaches();
+                } else {
+                    console.log(`Code inattendu : ${response.code}`);
+                }
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+    }
+
     private chargerTaches() {
-        this.gestionnaireTachesService.getTaches().subscribe({
+        this.gestionnaireTachesService.chargerTaches().subscribe({
             next: (data) => {
                 this.taches.set(data);
             },
