@@ -6,7 +6,7 @@
         <a href="https://github.com/java-playground-of-css/Todo-REST-API-Spring-Boot" >java-playground-of-css/Todo-REST-API-Spring-Boot</a>
     </p>
     <ul>
-    @for(tache of taches(); track tache.getId()) {
+    @for(tache of taches(); track tache.todoId) {
         <li>{{ tache.getTitle() }}</li>
     } @empty {
         <li>Aucune tâche trouvée.</li>
