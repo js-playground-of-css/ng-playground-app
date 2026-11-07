@@ -17,11 +17,13 @@ export class AjouterTachePage {
     readonly #router = inject(Router);
 
     onSave(tache : TodoForm) {
+        console.log('save recu');
         if(
             tache.titreTache !== undefined && tache.titreTache !== null &&
             tache.descriptionTache !== undefined && tache.descriptionTache !== null &&
             tache.dateTache != undefined
         ) {
+            console.log('test OK')
             this.gestionnaireTachesService.ajouterTache({
                 todoId: 0,
                 todoTitle: tache.titreTache,
@@ -30,6 +32,7 @@ export class AjouterTachePage {
                 isComplete: false
             }).subscribe({
                 next: (response) => {
+                    console.log(response);
                     if(response.code == 201) {
                         // go to todolist
                         this.#router.navigate(['/sub-app/gestionnaire-taches']);
