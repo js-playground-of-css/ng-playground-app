@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { GestionnaireTachesService } from '../services/gestionnaire-taches.service';
 import { TacheForm } from '../tache-form/tache-form.component';
 import { TodoForm } from '../model/todo-form';
@@ -13,6 +14,8 @@ export class AjouterTachePage {
 
     private gestionnaireTachesService = inject(GestionnaireTachesService);
 
+    readonly #router = inject(Router);
+
     onSave(tache : TodoForm) {
         if(
             tache.titreTache !== undefined && tache.titreTache !== null &&
@@ -25,6 +28,18 @@ export class AjouterTachePage {
                 todoDescription: tache.descriptionTache,
                 todoDate: this.isString(tache.dateTache) ? new Date(tache.dateTache) : tache.dateTache,
                 isComplete: false
+            }).subscribe({
+                next: (response) => {
+                    if(response.code == 201) {
+                        // go to todolist
+                        this.#router.navigate(['/sub-app/gestionnaire-taches']);
+                    } else {
+                        console.log(`Code retour inattendu : ${response.code}`);
+                    }
+                },
+                error: (err) => {
+                    console.log(err);
+                }
             });
         }
     }

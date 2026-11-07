@@ -45,6 +45,18 @@ export class EditerTachePage implements OnInit {
                 todoDescription: tache.descriptionTache,
                 todoDate: this.isString(tache.dateTache) ? new Date(tache.dateTache) : tache.dateTache,
                 isComplete: false
+            }).subscribe({
+                next: (response) => {
+                    if(response.code == 200) {
+                        // go to todolist
+                        this.#router.navigate(['/sub-app/gestionnaire-taches']);
+                    } else {
+                        console.log(`Code retour inattendu : ${response.code}`);
+                    }
+                },
+                error: (err) => {
+                    console.log(err);
+                }
             });
         }
     }
