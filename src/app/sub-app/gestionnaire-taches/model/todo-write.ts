@@ -1,3 +1,3 @@
 import { Todo } from "./todo";
 
-export type TodoWrite = Omit<Todo, 'creationDate' | 'updateDate'>;
+export type TodoWrite = Omit<Todo, 'todoId' | 'creationDate' | 'updateDate'>;

@@ -24,7 +24,7 @@ export class EditerTachePage implements OnInit {
 
         if(tacheAModifier) {
             this.tacheCourante.set({
-                titreId: tacheAModifier.todoId,
+                idTache: tacheAModifier.todoId,
                 titreTache: tacheAModifier.todoTitle,
                 descriptionTache: tacheAModifier.todoDescription,
                 dateTache: tacheAModifier.todoDate
@@ -34,17 +34,16 @@ export class EditerTachePage implements OnInit {
     
     onSave(tache : TodoForm) {
         if(
-            tache.titreId !== undefined &&
+            tache.idTache !== undefined &&
             tache.titreTache !== undefined && tache.titreTache !== null &&
-            tache.descriptionTache !== undefined && tache.descriptionTache !== null &&
             tache.dateTache != undefined
         ) {
             this.gestionnaireTachesService.modifierTache({
-                todoId: tache.titreId,
-                todoTitle: tache.titreTache,
-                todoDescription: tache.descriptionTache,
-                todoDate: this.isString(tache.dateTache) ? new Date(tache.dateTache) : tache.dateTache,
-                isComplete: false
+                ...tache,
+                descriptionTache: 
+                    tache.descriptionTache !== undefined && tache.descriptionTache !== null ?
+                    tache.descriptionTache : '',
+                dateTache: this.isString(tache.dateTache) ? new Date(tache.dateTache) : tache.dateTache
             }).subscribe({
                 next: (response) => {
                     if(response.code == 200) {

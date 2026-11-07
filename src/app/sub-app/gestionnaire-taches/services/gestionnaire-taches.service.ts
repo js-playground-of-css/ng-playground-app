@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Todo } from '../model/todo';
 import { ResponseTodoList } from '../model/response-todo-list';
 import { TodoWrite } from '../model/todo-write';
+import { TodoForm } from '../model/todo-form';
 
 @Injectable({providedIn: 'root'})
 export class GestionnaireTachesService {
@@ -20,14 +21,14 @@ export class GestionnaireTachesService {
         return this.http.post<ResponseTodoList>(`${this.urlService}additem`, nouvelleTache);
     }
 
-    modifierTache(tacheAModifier : TodoWrite) : Observable<ResponseTodoList> {
+    modifierTache(tacheAModifier : TodoForm) : Observable<ResponseTodoList> {
         return this.http.put<ResponseTodoList>(
-            `${this.urlService}updateitem/${tacheAModifier.todoId}`,
+            `${this.urlService}updateitem/${tacheAModifier.idTache}`,
             {
-                todoTitle: tacheAModifier.todoTitle,
-                todoDescription: tacheAModifier.todoDescription,
+                todoTitle: tacheAModifier.titreTache,
+                todoDescription: tacheAModifier.descriptionTache,
                 isComplete: tacheAModifier.isComplete,
-                todoDate: tacheAModifier.todoDate
+                todoDate: tacheAModifier.dateTache
             }
         );
     }
