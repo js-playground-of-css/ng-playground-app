@@ -4,6 +4,7 @@ import { GestionnaireTachesService } from '../services/gestionnaire-taches.servi
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TodoWrite } from '../model/todo-write';
 import { TodoForm } from '../model/todo-form';
+import { DateUtils } from '../../../utils/date-utils';
 
 @Component({
   selector: 'tache-form',
@@ -41,7 +42,9 @@ export class TacheForm {
             if(tacheCourante) {
                 this.form.patchValue({
                     ...tacheCourante,
-                    dateTache: this.formatDateForInput(tacheCourante.dateTache) // Conversion date
+                    dateTache: DateUtils.transformDateToString(
+                        tacheCourante.dateTache !== undefined ? tacheCourante.dateTache : new Date()
+                    )
                 });
             } else {
                 this.form.reset();
@@ -64,13 +67,6 @@ export class TacheForm {
             };
             this.save.emit(formData);
         }
-    }
-
-    private formatDateForInput(date: string | Date | undefined): string {
-        if (!date) return '';
-        const d = new Date(date);
-        if (isNaN(d.getTime())) return '';
-        return d.toISOString().split('T')[0];
     }
 
 }
