@@ -35,6 +35,14 @@ export class DateUtils {
     public static computeDurationFromToday(anInputDate : Date) : DateDuration {
         return DateUtils.computeDurationWithTodayIndicator(anInputDate, false);
     }
+    
+    public static transformDateToString(date: Date): string {
+        return [
+            date.getFullYear(),
+            String(date.getMonth() + 1).padStart(2, '0'),
+            String(date.getDate()).padStart(2, '0')
+        ].join('-');
+    }
 
     private static computeDurationWithTodayIndicator(anInputDate : Date, isTodayEndDate : boolean) : DateDuration {
         const compareBeginDate = isTodayEndDate ?
@@ -72,4 +80,5 @@ export class DateUtils {
         }
         return new DateDuration(output, unit);
     }
+
 }

@@ -43,7 +43,7 @@ export class EditerTachePage implements OnInit {
                 descriptionTache: 
                     tache.descriptionTache !== undefined && tache.descriptionTache !== null ?
                     tache.descriptionTache : '',
-                dateTache: this.isString(tache.dateTache) ? new Date(tache.dateTache) : tache.dateTache
+                dateTache: tache.dateTache
             }).subscribe({
                 next: (response) => {
                     if(response.code == 200) {

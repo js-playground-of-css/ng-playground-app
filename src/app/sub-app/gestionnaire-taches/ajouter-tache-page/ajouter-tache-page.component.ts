@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GestionnaireTachesService } from '../services/gestionnaire-taches.service';
 import { TacheForm } from '../tache-form/tache-form.component';
 import { TodoForm } from '../model/todo-form';
+import { DateUtils } from '../../../utils/date-utils';
 
 @Component({
   selector: 'ajouter-tache-page',
@@ -26,7 +27,7 @@ export class AjouterTachePage {
                 todoDescription: 
                     tache.descriptionTache !== undefined && tache.descriptionTache !== null ? 
                     tache.descriptionTache : '',
-                todoDate: this.isString(tache.dateTache) ? new Date(tache.dateTache) : tache.dateTache,
+                todoDate: DateUtils.transformDateToString(tache.dateTache),
                 isComplete: false
             }).subscribe({
                 next: (response) => {

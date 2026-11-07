@@ -1,3 +1,7 @@
-import { Todo } from "./todo";
 
-export type TodoWrite = Omit<Todo, 'todoId' | 'creationDate' | 'updateDate'>;
+export interface TodoWrite {
+    todoTitle: string;
+    todoDescription: string;
+    isComplete: boolean;
+    todoDate: string;
+}
