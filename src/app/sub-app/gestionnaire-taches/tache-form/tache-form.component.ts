@@ -37,7 +37,8 @@ export class TacheForm {
         dateTache: new FormControl('', [
             Validators.required/*,
             futureOrTodayValidator()*/
-        ])
+        ]),
+        completeTache: new FormControl('')
     });
 
     constructor() {
