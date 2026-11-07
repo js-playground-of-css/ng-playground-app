@@ -52,7 +52,8 @@ export class TacheForm {
                     );
                 this.form.patchValue({
                     ...tacheCourante,
-                    dateTache: dateTache
+                    dateTache: dateTache,
+                    completeTache: tacheCourante.isComplete
                 });
             } else {
                 this.form.reset();
