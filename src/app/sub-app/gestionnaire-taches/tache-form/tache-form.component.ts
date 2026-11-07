@@ -66,12 +66,13 @@ export class TacheForm {
 
     onSubmit() {
         if(this.form.valid) {
-            const formValue = this.form.value;console.log(formValue);
+            const formValue = this.form.value;
 
             const formData : TodoForm = {
                 ...this.tache(),
                 ...formValue,
-                dateTache: formValue.dateTache ? new Date(formValue.dateTache) : undefined
+                dateTache: formValue.dateTache ? new Date(formValue.dateTache) : undefined,
+                isComplete: formValue.completeTache === 'true'
             };
             this.save.emit(formData);
         }
