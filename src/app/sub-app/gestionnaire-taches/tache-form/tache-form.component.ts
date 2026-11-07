@@ -1,10 +1,9 @@
 import { Component, effect, inject, input, output } from '@angular/core';
 import { Router } from '@angular/router';
-import { GestionnaireTachesService } from '../services/gestionnaire-taches.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { TodoWrite } from '../model/todo-write';
 import { TodoForm } from '../model/todo-form';
 import { DateUtils } from '../../../utils/date-utils';
+import { futureOrTodayValidator } from '../../../utils/validator/futur-or-today-validator';
 
 @Component({
   selector: 'tache-form',
@@ -28,11 +27,16 @@ export class TacheForm {
 
     readonly form = new FormGroup({
         titreTache: new FormControl('', [
-            Validators.required
+            Validators.required,
+            Validators.minLength(5)
         ]),
-        descriptionTache: new FormControl(''),
+        descriptionTache: new FormControl('', [
+            Validators.required,
+            Validators.minLength(5)
+        ]),
         dateTache: new FormControl('', [
-            Validators.required
+            Validators.required/*,
+            futureOrTodayValidator()*/
         ])
     });
 

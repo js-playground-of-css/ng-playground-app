@@ -42,7 +42,7 @@ export class EditerTachePage implements OnInit {
                 ...tache,
                 descriptionTache: 
                     tache.descriptionTache !== undefined && tache.descriptionTache !== null ?
-                    tache.descriptionTache : '',
+                    tache.descriptionTache : 'Description par défaut',
                 dateTache: tache.dateTache
             }).subscribe({
                 next: (response) => {
