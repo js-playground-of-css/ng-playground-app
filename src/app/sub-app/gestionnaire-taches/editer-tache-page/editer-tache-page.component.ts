@@ -26,7 +26,8 @@ export class EditerTachePage implements OnInit {
                 idTache: tacheAModifier.todoId,
                 titreTache: tacheAModifier.todoTitle,
                 descriptionTache: tacheAModifier.todoDescription,
-                dateTache: tacheAModifier.todoDate
+                dateTache: tacheAModifier.todoDate,
+                isComplete: tacheAModifier.isComplete
             });
         }
     }
