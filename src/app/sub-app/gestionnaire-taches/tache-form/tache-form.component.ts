@@ -38,7 +38,7 @@ export class TacheForm {
             Validators.required/*,
             futureOrTodayValidator()*/
         ]),
-        completeTache: new FormControl('')
+        completeTache: new FormControl(false, { nonNullable: true })
     });
 
     constructor() {
@@ -72,7 +72,7 @@ export class TacheForm {
                 ...this.tache(),
                 ...formValue,
                 dateTache: formValue.dateTache ? new Date(formValue.dateTache) : undefined,
-                isComplete: formValue.completeTache === 'true'
+                isComplete: formValue.completeTache
             };
             this.save.emit(formData);
         }
