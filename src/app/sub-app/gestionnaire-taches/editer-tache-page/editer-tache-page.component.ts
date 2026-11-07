@@ -19,8 +19,7 @@ export class EditerTachePage implements OnInit {
     tacheCourante = signal<TodoForm | null>(null);
 
     ngOnInit(): void {
-        const navigation = this.#router.getCurrentNavigation();
-        const tacheAModifier = navigation?.extras?.state?.['tache'];
+        const tacheAModifier = history.state.tache;
 
         if(tacheAModifier) {
             this.tacheCourante.set({
