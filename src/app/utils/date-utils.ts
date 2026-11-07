@@ -43,6 +43,14 @@ export class DateUtils {
             String(date.getDate()).padStart(2, '0')
         ].join('-');
     }
+    
+    public static transformDateToStringBoostrap(date: Date): string {
+        return [
+            date.getFullYear(),
+            String(date.getDate()).padStart(2, '0'),
+            String(date.getMonth() + 1).padStart(2, '0')
+        ].join('-');
+    }
 
     private static computeDurationWithTodayIndicator(anInputDate : Date, isTodayEndDate : boolean) : DateDuration {
         const compareBeginDate = isTodayEndDate ?

@@ -42,7 +42,7 @@ export class TacheForm {
             if(tacheCourante) {
                 this.form.patchValue({
                     ...tacheCourante,
-                    dateTache: DateUtils.transformDateToString(
+                    dateTache: DateUtils.transformDateToStringBoostrap(
                         tacheCourante.dateTache !== undefined ? tacheCourante.dateTache : new Date()
                     )
                 });
@@ -58,7 +58,7 @@ export class TacheForm {
 
     onSubmit() {
         if(this.form.valid) {
-            const formValue = this.form.value;
+            const formValue = this.form.value;console.log(formValue);
 
             const formData : TodoForm = {
                 ...this.tache(),
