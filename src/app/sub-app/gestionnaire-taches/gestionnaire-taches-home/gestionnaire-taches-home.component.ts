@@ -1,11 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { GestionnaireTachesService } from '../services/gestionnaire-taches.service';
 import { Todo } from '../model/todo';
 
 @Component({
   selector: 'gestionnaire-taches-home',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: 'gestionnaire-taches-home.component.html',
   styles: ``
 })

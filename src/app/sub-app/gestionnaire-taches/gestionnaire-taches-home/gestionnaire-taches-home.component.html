@@ -7,7 +7,7 @@
     </p>
     <h3 class="mb-3" >Todolist</h3>
     <div class="btn-group w-50 mb-3">
-        <button class="btn-solid theme-primary" type="button" (click)="this.goToAddTask();" >Ajouter</button>
+        <button class="btn-solid theme-primary" type="button" (click)="this.goToAddTask();" >Ajouter une tâche</button>
     </div>
     <div class="list-group w-50" >
     @for(tache of taches(); track tache.todoId) {
@@ -15,13 +15,15 @@
             <div class="d-flex w-100 justify-content-between form-field">
                 <input class="form-check-input mb-1" type="checkbox" value="" id="{{ tache.todoId }}" />
                 <label class="form-check-label mb-1" for="{{ tache.todoId }}">{{ tache.todoTitle }}</label>
-                <small>{{ tache.todoDate }}</small>
+                <small>{{ tache.todoDate | date:"dd/MM/yyyy" }}</small>
             </div>
             <p class="mb-1">{{ tache.todoDescription }}</p>
-            <small>Créée le : {{ tache.creationDate }} / Modifiée le : {{ tache.updateDate }}</small>
+            <small>
+                Créée le : {{ tache.creationDate | date:"dd/MM/yyyy 'à' HH:mm:ss" }} / Modifiée le : {{ tache.updateDate | date:"dd/MM/yyyy 'à' HH:mm:ss" }}
+            </small>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn-solid theme-primary me-md-2" type="button" >Modifier</button>
-                <button class="btn-solid theme-primary" type="button" (click)="this.supprimerTache(tache.todoId);" >Supprimer</button>
+                <button class="btn-solid theme-danger" type="button" (click)="this.supprimerTache(tache.todoId);" >Supprimer</button>
             </div>
         </span>
     } @empty {
