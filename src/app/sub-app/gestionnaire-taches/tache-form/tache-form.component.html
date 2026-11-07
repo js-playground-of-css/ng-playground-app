@@ -11,15 +11,15 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()" >
         <div class="mb-3">
             <label for="titreTache" class="form-label" >Titre</label>
-            <input type="titreTache" class="form-control" id="titreTache" >
+            <input type="titreTache" class="form-control" id="titreTache" formControlName="titreTache" >
         </div>
         <div class="form-field mb-3">
             <label for="descriptionTache" class="form-label">Description</label>
-            <textarea class="form-control" id="descriptionTache" rows="3"></textarea>
+            <textarea class="form-control" id="descriptionTache" rows="3" formControlName="descriptionTache" ></textarea>
         </div>
         <div class="form-field mb-3">
             <label for="dateTache" class="form-label">Date</label>
-            <input type="text" class="form-control w-12" id="dateTache" data-bs-toggle="datepicker" autocomplete="off" placeholder="Choisissez l'échéance" >
+            <input type="text" class="form-control w-12" id="dateTache" data-bs-toggle="datepicker" autocomplete="off" placeholder="Choisissez l'échéance" formControlName="dateTache" >
         </div>
         <button type="submit" class="btn-solid theme-primary" [disabled]="form.invalid" >{{ intituleBoutonAction() }}</button>
     </form>
