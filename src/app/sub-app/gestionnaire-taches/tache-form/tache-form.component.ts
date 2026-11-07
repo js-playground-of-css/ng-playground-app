@@ -44,12 +44,14 @@ export class TacheForm {
         effect(() => {
             const tacheCourante = this.tache();
             if(tacheCourante) {
-                console.log(typeof tacheCourante.dateTache)
+                const dateTache : string = typeof tacheCourante.dateTache === 'string' ?
+                    tacheCourante.dateTache :
+                    DateUtils.transformDateToStringBoostrap(
+                        tacheCourante.dateTache ?? new Date()
+                    );
                 this.form.patchValue({
                     ...tacheCourante,
-                    dateTache: DateUtils.transformDateToStringBoostrap(
-                        tacheCourante.dateTache ?? new Date()
-                    )
+                    dateTache: dateTache
                 });
             } else {
                 this.form.reset();
