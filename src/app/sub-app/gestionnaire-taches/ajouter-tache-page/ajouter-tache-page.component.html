@@ -1,26 +1,8 @@
 <div class="m-2 text-white w-50" >
-    <h2 class="mb-3" >Ajouter une tâche</h2>
-    <div class="btn-group w-50 mb-3">
-        <button class="btn-solid theme-primary" type="button" (click)="this.goToTodolist();" >
-            <svg class="bi me-1" width="16" height="16" aria-hidden="true">
-                <use href="#arrow-left" />
-            </svg>
-            Retourner à la liste de tâche
-        </button>
-    </div>
-    <form>
-        <div class="mb-3">
-            <label for="titreTache" class="form-label" >Titre</label>
-            <input type="titreTache" class="form-control" id="titreTache" >
-        </div>
-        <div class="form-field mb-3">
-            <label for="descriptionTache" class="form-label">Description</label>
-            <textarea class="form-control" id="descriptionTache" rows="3"></textarea>
-        </div>
-        <div class="form-field mb-3">
-            <label for="dateTache" class="form-label">Date</label>
-            <input type="text" class="form-control w-12" id="dateTache" data-bs-toggle="datepicker" autocomplete="off" placeholder="Choisissez l'échéance" >
-        </div>
-        <button type="submit" class="btn-solid theme-primary">Ajouter la tâche à la liste</button>
-    </form>
+    <tache-form
+        titrePage="Ajouter une tâche"
+        intituleBoutonAction="Ajouter la tâche à la liste"
+        modeEcriture="true"
+        (save)="onSave($event)"
+    />
 </div>

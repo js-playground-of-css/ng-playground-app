@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Todo } from '../model/todo';
 import { ResponseTodoList } from '../model/response-todo-list';
+import { TodoWrite } from '../model/todo-write';
 
 @Injectable({providedIn: 'root'})
 export class GestionnaireTachesService {
@@ -15,8 +16,20 @@ export class GestionnaireTachesService {
         return this.http.get<Array<Todo>>(`${this.urlService}todolist`);
     }
 
-    ajouterTache(nouvelleTache : Todo) : Observable<ResponseTodoList> {
+    ajouterTache(nouvelleTache : TodoWrite) : Observable<ResponseTodoList> {
         return this.http.post<ResponseTodoList>(`${this.urlService}additem`, nouvelleTache);
+    }
+
+    modifierTache(tacheAModifier : TodoWrite) : Observable<ResponseTodoList> {
+        return this.http.put<ResponseTodoList>(
+            `${this.urlService}updateitem/${tacheAModifier.todoId}`,
+            {
+                todoTitle: tacheAModifier.todoTitle,
+                todoDescription: tacheAModifier.todoDescription,
+                isComplete: tacheAModifier.isComplete,
+                todoDate: tacheAModifier.todoDate
+            }
+        );
     }
 
     supprimerTache(id : number) : Observable<ResponseTodoList> {

@@ -22,7 +22,7 @@
                 Créée le : {{ tache.creationDate | date:"dd/MM/yyyy 'à' HH:mm:ss" }} / Modifiée le : {{ tache.updateDate | date:"dd/MM/yyyy 'à' HH:mm:ss" }}
             </small>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn-solid theme-primary me-md-2" type="button" >Modifier</button>
+                <button class="btn-solid theme-primary me-md-2" type="button" (click)="this.modifierTache(tache);" >Modifier</button>
                 <button class="btn-solid theme-danger" type="button" (click)="this.supprimerTache(tache.todoId);" >Supprimer</button>
             </div>
         </span>

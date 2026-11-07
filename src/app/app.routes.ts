@@ -4,6 +4,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { BoardBatonnetsComponent } from './games/batonnets/board-batonnets/board-batonnets.component';
 import { JoursFeriesPageComponent } from './sub-app/jours-feries-fr/jours-feries-page/jours-feries-page.component';
 import { GestionnaireTachesHomeComponent } from './sub-app/gestionnaire-taches/gestionnaire-taches-home/gestionnaire-taches-home.component';
+import { EditerTachePage } from './sub-app/gestionnaire-taches/editer-tache-page/editer-tache-page.component';
 import { AjouterTachePage } from './sub-app/gestionnaire-taches/ajouter-tache-page/ajouter-tache-page.component';
 
 export const routes: Routes = [
@@ -13,5 +14,6 @@ export const routes: Routes = [
 	{ path: 'sub-app/jours-feries-fr', title: 'Jours fériés français', component: JoursFeriesPageComponent },
 	{ path: 'sub-app/gestionnaire-taches', title: 'Gestionnaire rudimentaire de tâches', component: GestionnaireTachesHomeComponent },
 	{ path: 'sub-app/gestionnaire-taches/ajouter-tache', title: 'Ajouter une tache à la liste', component: AjouterTachePage },
+	{ path: 'sub-app/gestionnaire-taches/modifier-tache', title: 'Modifier une tache à la liste', component: EditerTachePage },
 	{ path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

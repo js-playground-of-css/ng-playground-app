@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { GestionnaireTachesService } from '../services/gestionnaire-taches.service';
+import { TacheForm } from '../tache-form/tache-form.component';
+import { TodoForm } from '../model/todo-form';
 
 @Component({
   selector: 'ajouter-tache-page',
-  imports: [],
+  imports: [TacheForm],
   templateUrl: 'ajouter-tache-page.component.html',
   styles: ``
 })
@@ -12,10 +13,24 @@ export class AjouterTachePage {
 
     private gestionnaireTachesService = inject(GestionnaireTachesService);
 
-    readonly #router = inject(Router);
+    onSave(tache : TodoForm) {
+        if(
+            tache.titreTache !== undefined && tache.titreTache !== null &&
+            tache.descriptionTache !== undefined && tache.descriptionTache !== null &&
+            tache.dateTache != undefined
+        ) {
+            this.gestionnaireTachesService.ajouterTache({
+                todoId: 0,
+                todoTitle: tache.titreTache,
+                todoDescription: tache.descriptionTache,
+                todoDate: this.isString(tache.dateTache) ? new Date(tache.dateTache) : tache.dateTache,
+                isComplete: false
+            });
+        }
+    }
 
-    goToTodolist() {
-        this.#router.navigate(['sub-app/gestionnaire-taches']);
+    private isString(uneVariable : any) {
+        return typeof uneVariable === 'string' || uneVariable instanceof String;
     }
 
 }

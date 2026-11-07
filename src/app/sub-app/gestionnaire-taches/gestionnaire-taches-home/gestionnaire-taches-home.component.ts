@@ -30,6 +30,16 @@ export class GestionnaireTachesHomeComponent implements OnInit {
     }
 
     /**
+     * Modifier une tâche.
+     */
+    modifierTache(tacheAModifier : Todo) {
+        this.#router.navigate(
+            ['/sub-app/gestionnaire-taches/modifier-tache'],
+            { state: { tache: tacheAModifier } }
+        );
+    }
+
+    /**
      * Supprimer une tâche.
      */
     supprimerTache(id : number) {

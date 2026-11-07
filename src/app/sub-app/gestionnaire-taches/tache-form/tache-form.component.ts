@@ -1,0 +1,76 @@
+import { Component, effect, inject, input, output } from '@angular/core';
+import { Router } from '@angular/router';
+import { GestionnaireTachesService } from '../services/gestionnaire-taches.service';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { TodoWrite } from '../model/todo-write';
+import { TodoForm } from '../model/todo-form';
+
+@Component({
+  selector: 'tache-form',
+  imports: [ReactiveFormsModule],
+  templateUrl: 'tache-form.component.html',
+  styles: ``
+})
+export class TacheForm {
+
+    readonly #router = inject(Router);
+
+    titrePage = input<string>('Ajouter une tâche');
+
+    intituleBoutonAction = input<string>('Ajouter la tâche à la liste');
+
+    modeAjouter = input<boolean>(true);
+
+    tache = input<TodoForm | null>(null);
+
+    save = output<TodoForm>();
+
+    readonly form = new FormGroup({
+        titreTache: new FormControl('', [
+            Validators.required
+        ]),
+        descriptionTache: new FormControl(''),
+        dateTache: new FormControl('', [
+            Validators.required
+        ])
+    });
+
+    constructor() {
+        effect(() => {
+            const tacheCourante = this.tache();
+            if(tacheCourante) {
+                this.form.patchValue({
+                    ...tacheCourante,
+                    dateTache: this.formatDateForInput(tacheCourante.dateTache) // Conversion date
+                });
+            } else {
+                this.form.reset();
+            }
+        });
+    }
+
+    goToTodolist() {
+        this.#router.navigate(['sub-app/gestionnaire-taches']);
+    }
+
+    onSubmit() {
+        if(this.form.valid) {
+            const formValue = this.form.value;
+
+            const formData : TodoForm = {
+                ...this.tache(),
+                ...formValue,
+                dateTache: formValue.dateTache ? new Date(formValue.dateTache) : undefined
+            };
+            this.save.emit(formData);
+        }
+    }
+
+    private formatDateForInput(date: string | Date | undefined): string {
+        if (!date) return '';
+        const d = new Date(date);
+        if (isNaN(d.getTime())) return '';
+        return d.toISOString().split('T')[0];
+    }
+
+}
