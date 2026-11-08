@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GestionnaireTachesService } from '../services/gestionnaire-taches.service';
 import { TacheForm } from '../tache-form/tache-form.component';
 import { TodoForm } from '../model/todo-form';
+import { Todo } from '../model/todo';
 
 @Component({
   selector: 'editer-tache-page',
@@ -19,15 +20,14 @@ export class EditerTachePage implements OnInit {
     tacheCourante = signal<TodoForm | null>(null);
 
     ngOnInit(): void {
-        const tacheAModifier = history.state.tache;
-
+        const tacheAModifier : Todo = history.state.tache;
         if(tacheAModifier) {
             this.tacheCourante.set({
                 idTache: tacheAModifier.todoId,
                 titreTache: tacheAModifier.todoTitle,
                 descriptionTache: tacheAModifier.todoDescription,
                 dateTache: tacheAModifier.todoDate,
-                isComplete: tacheAModifier.isComplete
+                isComplete: tacheAModifier.complete
             });
         }
     }

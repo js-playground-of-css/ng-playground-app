@@ -28,7 +28,7 @@ export class GestionnaireTachesService {
             {
                 todoTitle: tacheAModifier.titreTache,
                 todoDescription: tacheAModifier.descriptionTache,
-                isComplete: tacheAModifier.isComplete,
+                complete: tacheAModifier.isComplete,
                 todoDate: DateUtils.transformDateToStringFrench(tacheAModifier.dateTache ?? new Date())
             }
         );

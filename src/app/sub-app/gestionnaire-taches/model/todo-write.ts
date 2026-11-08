@@ -2,6 +2,6 @@
 export interface TodoWrite {
     todoTitle: string;
     todoDescription: string;
-    isComplete: boolean;
+    complete: boolean;
     todoDate: string;
 }
