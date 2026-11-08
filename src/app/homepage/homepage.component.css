@@ -1,0 +1,13 @@
+
+.feature-card {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    min-height: 120px;
+    margin-bottom: 10px;
+}
+
+.go-to-button {
+    margin-top: 6px;
+    width: 100%;
+}

@@ -1,20 +1,24 @@
 <div class="text-white m-2" >
     <h2>Sommaire des fonctionnalités</h2>
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+    <!--<mat-grid-list cols="2" rowHeight="6:1" >-->
         @for(feature of featureList() ; track feature.id) {
-        <div class="col-6" >
-            <div class="card" appFeatureBorder [featureType]="feature.type">
-                <div class="card-body">
-                    <h5 class="card-title">{{ feature.title }}</h5>
-                    <p class="card-text">Code : {{ feature.path }}</p>
+        <!--<mat-grid-tile>-->
+            <mat-card class="feature-card" appFeatureBorder [featureType]="feature.type" appearance="outlined" >
+                <mat-card-header>
+                    <mat-card-title-group>
+                        <mat-card-title>{{ feature.title }}</mat-card-title>
+                    </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content>
+                    Code : {{ feature.path }}<br />
                     @if(feature.url === 'home') {
-                    <span class="btn-solid theme-secondary">Nous y sommes !</span>
+                    <button mat-fab extend disabled class="go-to-button" >Nous y sommes !</button>
                     } @else {
-                    <a href="{{ feature.url }}" class="btn-solid theme-primary">Y aller !</a>
+                    <a mat-fab extend href="{{ feature.url }}" class="go-to-button">Y aller !</a>
                     }
-                </div>
-            </div>
-        </div>
+                </mat-card-content>
+            </mat-card>
+        <!--</mat-grid-tile>-->
         }
-    </div>
+    <!--</mat-grid-list>-->
 </div>
