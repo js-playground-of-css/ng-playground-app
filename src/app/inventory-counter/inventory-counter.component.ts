@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   template: `
-	<div class="text-white m-2" >
+	<div>
 		<h2>Test signal & co</h2>
 		<h3>Exemple d'un inventaire</h3>
 		<p>Etat : {{ tresholdText() }}</p>
