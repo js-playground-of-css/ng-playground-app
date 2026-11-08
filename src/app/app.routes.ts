@@ -14,6 +14,6 @@ export const routes: Routes = [
 	{ path: 'sub-app/jours-feries-fr', title: 'Jours fériés français', component: JoursFeriesPageComponent },
 	{ path: 'sub-app/gestionnaire-taches', title: 'Gestionnaire rudimentaire de tâches', component: GestionnaireTachesHomeComponent },
 	{ path: 'sub-app/gestionnaire-taches/ajouter-tache', title: 'Ajouter une tache à la liste', component: AjouterTachePage },
-	{ path: 'sub-app/gestionnaire-taches/modifier-tache', title: 'Modifier une tache à la liste', component: EditerTachePage },
+	{ path: 'sub-app/gestionnaire-taches/modifier-tache', title: 'Modifier une tache de la liste', component: EditerTachePage },
 	{ path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
