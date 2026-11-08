@@ -26,7 +26,7 @@
                 <input type="checkbox" value="" id="completeTache" role="switch" switch formControlName="completeTache" >
             </div>-->
             <input type="checkbox" id="completeTache" class="check" formControlName="completeTache" />
-            <label for="completeTache">Tâche complétée</label>
+            <label for="completeTache">{{ this.intituleTacheComplete() }}</label>
         </div>
         <button type="submit" class="btn-solid theme-primary" [disabled]="form.invalid" >{{ intituleBoutonAction() }}</button>
     </form>

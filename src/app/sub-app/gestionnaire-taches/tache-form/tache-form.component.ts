@@ -1,6 +1,7 @@
-import { Component, effect, inject, input, output } from '@angular/core';
+import { Component, effect, inject, input, output, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { TodoForm } from '../model/todo-form';
 import { futureOrTodayValidator } from '../../../utils/validator/futur-or-today-validator';
 import { DateUtils } from '../../../utils/date-utils';
@@ -40,6 +41,13 @@ export class TacheForm {
         ]),
         completeTache: new FormControl(false, { nonNullable: true })
     });
+
+    readonly tacheCompletee = toSignal(
+        this.form.controls.completeTache.valueChanges,
+        { initialValue: this.form.controls.completeTache.value }
+    );
+
+    readonly intituleTacheComplete = computed(() => this.tacheCompletee() ? 'Tâche complétée' : 'Tâche à compléter');
 
     constructor() {
         effect(() => {
