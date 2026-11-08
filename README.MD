@@ -20,12 +20,16 @@ Dans la partie suivante vous avez quelques explications pour déployer l'applica
 
 ## Déploiement
 
-### Via Docker
+### Via Docker : sans le backend
 
 - Cloner le dépôt !
 - Placez vous dans le projet.
 - Construire l'image Docker : `docker build -t ng-playground-app:latest .`
 - Puis lancer le conteneur.
+
+### Via Docker : avec le backend
+
+Dirigez-vous vers le dépôt GitHub suivant : [docker-playground-of-css/ng-spring-playground-app](https://github.com/docker-playground-of-css/ng-spring-playground-app) !
 
 ## Tour du projet
 
