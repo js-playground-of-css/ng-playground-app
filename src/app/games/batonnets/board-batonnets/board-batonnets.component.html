@@ -1,7 +1,7 @@
 <div class="text-white">
-    <p class="m-2">
-    Jeu du bâtonnets : plateau
-    </p>
+    <h2>
+        Jeu du bâtonnets : plateau
+    </h2>
     @if( ! this.partieEstFinie() ) {
     <p id="board">
     @for(etatBatonnet of this.etatPlateau.etatBatonnetMap.values(); track etatBatonnet.index) {
@@ -20,15 +20,23 @@
         @if(this.partieEstFinie()) {
         <button
             id="retry-btn"
-            class="btn btn-primary"
+            mat-fab
+            extended
             (click)="handleRejouer()"
-            >Rejouer</button>
+            >
+            <mat-icon aria-hidden="false" aria-label="Rejouer" fontIcon="replay" ></mat-icon>
+            Rejouer
+        </button>
         } @else if(this.etatPlateau.nbBatonnetSelectionne > 0 && this.etatPlateau.aToiDeJouer) {
         <button 
             id="play-btn" 
-            class="btn btn-success" 
+            mat-fab
+            extended
             (click)="handlerCliqueJouer()"
-            >Jouer</button>
+            >
+            <mat-icon aria-hidden="false" aria-label="Jouer" fontIcon="play_arrow" ></mat-icon>
+            Jouer
+        </button>
         }
     </p>
     @if( ! this.partieEstFinie() ) {

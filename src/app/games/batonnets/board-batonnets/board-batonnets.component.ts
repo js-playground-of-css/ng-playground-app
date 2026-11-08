@@ -1,4 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { AdaptativeBatonnetComponent } from '../adaptative-batonnet/adaptative-batonnet.component';
 import { EtatPlateau } from '../model/etat-plateau.model';
 import { EtatBatonnetMapGenerator } from '../utils/etat-batonnet-map-generator';
@@ -9,7 +11,11 @@ import { PartieEtat } from '../etat/partie.etat';
 
 @Component({
   selector: 'app-board-batonnets',
-  imports: [AdaptativeBatonnetComponent],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    AdaptativeBatonnetComponent
+  ],
   templateUrl: 'board-batonnets.component.html',
   styles: `
   #board {
