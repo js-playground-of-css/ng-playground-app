@@ -13,7 +13,7 @@ Gérer, au sens CRUD, une liste de tâches.
 
 ### Fonctionnalités
 
-- \[TODO\] Afficher l'ensemble des tâches.
-- \[TODO\] Créer une tâche.
-- \[TODO\] Mettre à jour une tâche.
-- \[TODO\] Supprimer une tâche.
+- Afficher l'ensemble des tâches.
+- Créer une tâche.
+- Mettre à jour une tâche.
+- Supprimer une tâche.
