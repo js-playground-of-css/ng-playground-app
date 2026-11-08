@@ -47,7 +47,7 @@ export class TacheForm {
             if(tacheCourante) {
                 const dateTache : string = typeof tacheCourante.dateTache === 'string' ?
                     tacheCourante.dateTache :
-                    DateUtils.transformDateToStringBoostrap(
+                    DateUtils.transformDateToStringFrench(
                         tacheCourante.dateTache ?? new Date()
                     );
                 this.form.patchValue({

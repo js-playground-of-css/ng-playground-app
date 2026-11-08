@@ -27,7 +27,7 @@ export class AjouterTachePage {
                 todoDescription: 
                     tache.descriptionTache !== undefined && tache.descriptionTache !== null ? 
                     tache.descriptionTache : 'Description par défaut',
-                todoDate: DateUtils.transformDateToStringBoostrap(tache.dateTache),
+                todoDate: DateUtils.transformDateToStringFrench(tache.dateTache),
                 isComplete: tache.isComplete ?? false
             }).subscribe({
                 next: (response) => {
