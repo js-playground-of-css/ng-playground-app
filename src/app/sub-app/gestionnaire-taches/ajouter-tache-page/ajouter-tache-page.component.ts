@@ -45,8 +45,4 @@ export class AjouterTachePage {
         }
     }
 
-    private isString(uneVariable : any) {
-        return typeof uneVariable === 'string' || uneVariable instanceof String;
-    }
-
 }

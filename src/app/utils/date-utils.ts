@@ -5,13 +5,24 @@ import { Today } from './today';
 export class DateUtils {
 
     public static stringToDate(
-        strDate: string
+        strDate: string,
+        separator : string = '-'
     ) : Date {
-        const strArray : Array<string> = new String(strDate).split('-');
+        const strArray : Array<string> = new String(strDate).split(separator);
         return new Date(
             parseInt(strArray[0]),
             parseInt(strArray[1]) - 1,
             parseInt(strArray[2])
+        );
+    }
+
+    public static stringToDateFr(strDate: string) : Date {
+        const [day, month, year] = strDate.split('/');
+
+        return new Date(
+            Number(year),
+            Number(month) - 1,
+            Number(day)
         );
     }
 

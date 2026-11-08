@@ -2,8 +2,8 @@ import { Component, effect, inject, input, output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TodoForm } from '../model/todo-form';
-import { DateUtils } from '../../../utils/date-utils';
 import { futureOrTodayValidator } from '../../../utils/validator/futur-or-today-validator';
+import { DateUtils } from '../../../utils/date-utils';
 
 @Component({
   selector: 'tache-form',
@@ -35,8 +35,8 @@ export class TacheForm {
             Validators.minLength(5)
         ]),
         dateTache: new FormControl('', [
-            Validators.required/*,
-            futureOrTodayValidator()*/
+            Validators.required,
+            futureOrTodayValidator()
         ]),
         completeTache: new FormControl(false, { nonNullable: true })
     });
@@ -45,15 +45,13 @@ export class TacheForm {
         effect(() => {
             const tacheCourante = this.tache();
             if(tacheCourante) {
-                const dateTache : string = typeof tacheCourante.dateTache === 'string' ?
-                    tacheCourante.dateTache :
-                    DateUtils.transformDateToStringFrench(
-                        tacheCourante.dateTache ?? new Date()
-                    );
+                const transformedDate : Date = typeof tacheCourante.dateTache === 'string' ?
+                    DateUtils.stringToDateFr(tacheCourante.dateTache) : new Date();
+                const dateTache : string = DateUtils.transformDateToString(transformedDate);
                 this.form.patchValue({
                     ...tacheCourante,
-                    dateTache: dateTache,
-                    completeTache: tacheCourante.isComplete
+                    completeTache: tacheCourante.isComplete,
+                    dateTache: dateTache
                 });
             } else {
                 this.form.reset();

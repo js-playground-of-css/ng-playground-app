@@ -5,6 +5,7 @@ import { Todo } from '../model/todo';
 import { ResponseTodoList } from '../model/response-todo-list';
 import { TodoWrite } from '../model/todo-write';
 import { TodoForm } from '../model/todo-form';
+import { DateUtils } from '../../../utils/date-utils';
 
 @Injectable({providedIn: 'root'})
 export class GestionnaireTachesService {
@@ -28,7 +29,7 @@ export class GestionnaireTachesService {
                 todoTitle: tacheAModifier.titreTache,
                 todoDescription: tacheAModifier.descriptionTache,
                 isComplete: tacheAModifier.isComplete,
-                todoDate: tacheAModifier.dateTache
+                todoDate: DateUtils.transformDateToStringFrench(tacheAModifier.dateTache ?? new Date())
             }
         );
     }
