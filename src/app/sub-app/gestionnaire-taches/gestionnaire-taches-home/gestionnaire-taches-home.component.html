@@ -13,6 +13,9 @@
     @for(tache of taches(); track tache.todoId) {
         <span class="list-group-item list-group-item-action" aria-current="true">
             <div class="d-flex w-100 justify-content-between form-field">
+                <div class="switch theme-success">
+                    <input type="checkbox" value="" role="switch" switch disabled [checked]="tache.complete" >
+                </div>
                 <span class="form-check-label mb-1" >{{ tache.todoTitle }}</span>
                 <small>{{ tache.todoDate }}</small>
             </div>
