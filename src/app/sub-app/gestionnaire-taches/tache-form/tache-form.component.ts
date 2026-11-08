@@ -1,16 +1,40 @@
 import { Component, effect, inject, input, output, computed } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 import { TodoForm } from '../model/todo-form';
 import { futureOrTodayValidator } from '../../../utils/validator/futur-or-today-validator';
 import { DateUtils } from '../../../utils/date-utils';
 
 @Component({
   selector: 'tache-form',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule
+  ],
   templateUrl: 'tache-form.component.html',
-  styles: ``
+  styles: `
+    .form-field-custom mat-form-field {
+        width: 40%;
+    }
+    mat-checkbox {
+        margin-bottom: 10px;
+    }
+  `
 })
 export class TacheForm {
 
@@ -20,13 +44,13 @@ export class TacheForm {
 
     intituleBoutonAction = input<string>('Ajouter la tâche à la liste');
 
-    modeAjouter = input<boolean>(true);
-
     tache = input<TodoForm | null>(null);
 
     save = output<TodoForm>();
 
-    readonly form = new FormGroup({
+    private fb = inject(FormBuilder);
+
+    readonly form = this.fb.group({
         titreTache: new FormControl('', [
             Validators.required,
             Validators.minLength(5)
@@ -35,7 +59,7 @@ export class TacheForm {
             Validators.required,
             Validators.minLength(5)
         ]),
-        dateTache: new FormControl('', [
+        dateTache: new FormControl<Date | null>(null, [
             Validators.required,
             futureOrTodayValidator()
         ]),
@@ -53,13 +77,12 @@ export class TacheForm {
         effect(() => {
             const tacheCourante = this.tache();
             if(tacheCourante) {
-                const transformedDate : Date = typeof tacheCourante.dateTache === 'string' ?
-                    DateUtils.stringToDateFr(tacheCourante.dateTache) : new Date();
-                const dateTache : string = DateUtils.transformDateToString(transformedDate);
+                const transformedDate : Date | undefined = typeof tacheCourante.dateTache === 'string' ?
+                    DateUtils.stringToDateFr(tacheCourante.dateTache) : tacheCourante.dateTache;
                 this.form.patchValue({
                     ...tacheCourante,
                     completeTache: tacheCourante.isComplete,
-                    dateTache: dateTache
+                    dateTache: transformedDate
                 });
             } else {
                 this.form.reset();
@@ -78,7 +101,7 @@ export class TacheForm {
             const formData : TodoForm = {
                 ...this.tache(),
                 ...formValue,
-                dateTache: formValue.dateTache ? new Date(formValue.dateTache) : undefined,
+                dateTache: formValue.dateTache ?? undefined,
                 isComplete: formValue.completeTache
             };
             this.save.emit(formData);

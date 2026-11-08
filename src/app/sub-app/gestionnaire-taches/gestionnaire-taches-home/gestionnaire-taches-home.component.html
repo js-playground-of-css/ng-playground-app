@@ -1,35 +1,60 @@
-<div class="text-white m-2" >
-    <h2 class="mb-3" >Gestionnaire rudimentaire de tâches</h2>
-    <h3 class="mb-3" >Introduction</h3>
-    <p class="w-50" >
+<div>
+    <h2>Gestionnaire rudimentaire de tâches</h2>
+    <h3>Introduction</h3>
+    <p>
         Le backend est assuré via le dépôt GitHub suivant :<br />
         <a href="https://github.com/java-playground-of-css/Todo-REST-API-Spring-Boot" >java-playground-of-css/Todo-REST-API-Spring-Boot</a>
     </p>
-    <h3 class="mb-3" >Todolist</h3>
-    <div class="btn-group w-50 mb-3">
-        <button class="btn-solid theme-primary" type="button" (click)="this.goToAddTask();" >Ajouter une tâche</button>
-    </div>
-    <div class="list-group w-50" >
+    <h3>Todolist</h3>
+    <button mat-fab extended (click)="this.goToAddTask();" style="margin-bottom: 8px;" >Ajouter une tâche</button>
     @for(tache of taches(); track tache.todoId) {
-        <span class="list-group-item list-group-item-action" aria-current="true">
-            <div class="d-flex w-100 justify-content-between form-field">
-                <div class="switch theme-success">
-                    <input type="checkbox" value="" role="switch" switch disabled [checked]="tache.complete" >
-                </div>
-                <span class="form-check-label mb-1" >{{ tache.todoTitle }}</span>
-                <small>{{ tache.todoDate }}</small>
-            </div>
-            <p class="mb-1">{{ tache.todoDescription }}</p>
-            <small>
-                Créée le : {{ tache.creationDate }} / Modifiée le : {{ tache.updateDate }}
-            </small>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn-solid theme-primary me-md-2" type="button" (click)="this.modifierTache(tache);" >Modifier</button>
-                <button class="btn-solid theme-danger" type="button" (click)="this.supprimerTache(tache.todoId);" >Supprimer</button>
-            </div>
-        </span>
+        <mat-card appearance="outlined" style="margin-bottom: 4px;" >
+            <mat-card-header>
+                <mat-card-title>
+                    <mat-checkbox disabled [checked]="tache.complete" labelPosition="before" >
+                        {{ tache.todoTitle }}
+                    </mat-checkbox>
+                </mat-card-title>
+                <mat-card-subtitle style="font-size: 0.6em;" >{{ tache.todoDate }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>{{ tache.todoDescription }}</p>
+            </mat-card-content>
+            <mat-card-footer style="padding-left: 16px;font-size: 0.6em" >
+                <p>Créée le : {{ tache.creationDate }} / Modifiée le : {{ tache.updateDate }}</p>
+            </mat-card-footer>
+            <mat-card-actions>
+                <!--<span>
+                    Créée le : {{ tache.creationDate }} / Modifiée le : {{ tache.updateDate }}
+                </span>-->
+                <button 
+                    mat-fab extended
+                    aria-label="Actions"
+                    [matMenuTriggerFor]="menuActionsTache"
+                    [matMenuTriggerData]="{ tache: tache }"
+                >
+                    <mat-icon>menu</mat-icon> Actions
+                </button>
+            </mat-card-actions>
+        </mat-card>
     } @empty {
-        <span class="list-group-item list-group-item-danger">Aucune tâche trouvée.</span>
+        <mat-card appearance="outlined" style="margin-bottom: 4px;" >
+            <mat-card-content>
+                <p>Aucune tâche trouvée.</p>
+            </mat-card-content>
+        </mat-card>
     }
-    </div>
+
+    <mat-menu #menuActionsTache="matMenu" >
+        <ng-template matMenuContent let-tache="tache" >
+            <button mat-menu-item (click)="this.modifierTache(tache);" >
+                <mat-icon>edit_square</mat-icon>
+                Modifier
+            </button>
+            <button mat-menu-item (click)="this.supprimerTache(tache.todoId);" style="color: red;" >
+                <mat-icon style="color: red;" >delete</mat-icon>
+                Supprimer
+            </button>
+        </ng-template>
+    </mat-menu>
 </div>

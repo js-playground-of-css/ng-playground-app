@@ -1,13 +1,33 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { GestionnaireTachesService } from '../services/gestionnaire-taches.service';
 import { Todo } from '../model/todo';
 
 @Component({
   selector: 'gestionnaire-taches-home',
-  imports: [],
+  imports: [
+    MatCardModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    MatCheckboxModule
+  ],
   templateUrl: 'gestionnaire-taches-home.component.html',
-  styles: ``
+  styles: `
+    mat-card {
+        width: 40%;
+        min-width: 600px;
+    }
+  `
 })
 export class GestionnaireTachesHomeComponent implements OnInit {
     

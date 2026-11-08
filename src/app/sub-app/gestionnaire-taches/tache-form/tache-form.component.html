@@ -1,33 +1,48 @@
-<div class="m-2 text-white w-50" >
-    <h2 class="mb-3" >{{ titrePage() }}</h2>
-    <div class="btn-group w-50 mb-3">
-        <button class="btn-solid theme-primary" type="button" (click)="this.goToTodolist();" >
-            <svg class="bi me-1" width="16" height="16" aria-hidden="true">
-                <use href="#arrow-left" />
-            </svg>
-            Retourner à la liste de tâches
-        </button>
-    </div>
+<div>
+    <h2>{{ titrePage() }}</h2>
+    <button mat-fab extended (click)="this.goToTodolist();" style="margin-bottom: 8px;" >
+        <mat-icon>arrow_back</mat-icon>
+        Retourner à la liste de tâches
+    </button>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" >
-        <div class="mb-3">
-            <label for="titreTache" class="form-label" >Titre</label>
-            <input type="titreTache" class="form-control" id="titreTache" formControlName="titreTache" >
+        <p class="form-field-custom" >
+            <mat-form-field appearance="outline" floatLabel="auto" >
+                <mat-label>Titre</mat-label>
+                <input 
+                    type="text"
+                    formControlName="titreTache"
+                    matInput
+                >
+                <mat-error>
+                    Le titre est obligatoire et doit faire minimum 5 caractères.
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p class="form-field-custom" >
+            <mat-form-field appearance="outline" floatLabel="auto" >
+                <mat-label>Description</mat-label>
+                <textarea matInput rows="3" formControlName="descriptionTache" ></textarea>
+                <mat-error>
+                    La description est obligatoire et doit faire minimum 5 caractères.
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p class="form-field-custom" >
+            <mat-form-field appearance="outline" >
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="dateTacheChamp" formControlName="dateTache" >
+                <mat-datepicker-toggle matIconSuffix [for]="dateTacheChamp" ></mat-datepicker-toggle>
+                <mat-datepicker #dateTacheChamp ></mat-datepicker>
+                <mat-error>
+                    La date est obligatoire et doit être dans le présent ou le futur.
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <mat-checkbox formControlName="completeTache" >
+            {{ this.intituleTacheComplete() }}
+        </mat-checkbox>
+        <div>
+            <button type="submit" mat-raised-button [disabled]="form.invalid" >{{ intituleBoutonAction() }}</button>
         </div>
-        <div class="form-field mb-3">
-            <label for="descriptionTache" class="form-label">Description</label>
-            <textarea class="form-control" id="descriptionTache" rows="3" formControlName="descriptionTache" ></textarea>
-        </div>
-        <div class="form-field mb-3">
-            <label for="dateTache" class="form-label">Date</label>
-            <input type="date" class="form-control w-12" id="dateTache" data-bs-toggle="datepicker" autocomplete="off" date-bs-date-min="today" placeholder="Choisissez l'échéance" formControlName="dateTache" >
-        </div>
-        <div class="form-field mb-3">
-            <!--<div class="switch theme-success">
-                <input type="checkbox" value="" id="completeTache" role="switch" switch formControlName="completeTache" >
-            </div>-->
-            <input type="checkbox" id="completeTache" class="check" formControlName="completeTache" />
-            <label for="completeTache">{{ this.intituleTacheComplete() }}</label>
-        </div>
-        <button type="submit" class="btn-solid theme-primary" [disabled]="form.invalid" >{{ intituleBoutonAction() }}</button>
     </form>
 </div>
