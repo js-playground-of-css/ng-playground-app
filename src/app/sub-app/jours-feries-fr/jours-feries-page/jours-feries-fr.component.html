@@ -1,22 +1,18 @@
 <div class="btn-group m-2" role="group" aria-label="Prochains jours fériés">
-    <button type="button" class="btn-solid theme-primary">
-        {{libelleProchainJoursFeries()}} <span class="badge theme-subtle">{{dureeProchainJoursFeries()}}</span>
-    </button>
-    
-    @if(this.aJoursFeriesSuivant()) {
-    <div class="btn-group">
-        <button type="button" class="btn btn-outline theme-primary" >
-            Jours fériés suivants
+    <mat-toolbar>
+        <button type="button" mat-button>
+            {{libelleProchainJoursFeries()}} {{dureeProchainJoursFeries()}}
         </button>
-        <button type="button" class="btn-outline theme-primary menu-toggle-split" data-bs-toggle="menu" aria-expanded="false" >
-            <svg class="bi" width="16" height="16" aria-hidden="true"><use href="#chevron-expand" /></svg>
-            <span class="visually-hidden">Toggle Menu</span>
+        
+        @if(this.aJoursFeriesSuivant()) {
+        <button mat-button [matMenuTriggerFor]="menuJoursFeriesSuivants" >
+            Jours fériés suivants <mat-icon>menu</mat-icon>
         </button>
-        <div class="menu">
+        <mat-menu #menuJoursFeriesSuivants="matMenu" >
             @for(joursFeriesApres of this.joursFeriesSuivant() ; track joursFeriesApres.getJoursStr()) {
-            <span class="menu-item" >{{joursFeriesApres.getLibelle()}}</span>
+            <button mat-menu-item >{{joursFeriesApres.getLibelle()}}</button>
             }
-        </div>
-    </div>
-    }
+        </mat-menu>
+        }
+    </mat-toolbar>
 </div>

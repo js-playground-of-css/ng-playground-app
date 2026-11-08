@@ -1,5 +1,8 @@
 import { Component, inject, signal, computed, OnInit, OnDestroy } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 import { JoursFeriesFrService } from '../services/jours-feries-fr.service';
 import { DateUtils } from '../../../utils/date-utils';
 import { JoursFeries } from '../model/jours-feries';
@@ -9,7 +12,12 @@ import { DateConstants } from '../../../constants/date-constants';
 
 @Component({
   selector: 'jours-feries-page',
-  imports: [],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatMenuModule
+  ],
   templateUrl: 'jours-feries-fr.component.html',
   styles: ``
 })
