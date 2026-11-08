@@ -2,7 +2,7 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-ARG APP_VERSION=v1.2.0
+ARG APP_VERSION=v1.3.0
 
 # Installation de git
 RUN apk add --no-cache git
